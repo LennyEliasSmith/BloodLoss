@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviour
     public string MainSceneName = "Main";
     public string UISceneName = "UI";
 
-    public void OnEnable()
+    public void Start()
     {
         if (!SceneManager.GetSceneByName(UISceneName).isLoaded)
         {
