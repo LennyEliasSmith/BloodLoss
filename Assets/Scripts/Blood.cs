@@ -1,3 +1,4 @@
+using Main.Game;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,6 +7,10 @@ public class Blood : MonoBehaviour
 {
     public PlayerData playerData;
     public PlayerMover playerMover;
+
+    public GameObject bloodObject;
+    public Vector3 bloodObjectPos;
+    private Quaternion initialRotation;
 
     public float maxBlood;
     [SerializeField]public float currentBlood;
@@ -19,21 +24,29 @@ public class Blood : MonoBehaviour
     public float lossLerpModifier;
 
     private float initialLossTime;
+
+    public float defaultBobAmount;
+    public float bobFrequency;
     void Start()
     {
         currentBlood = maxBlood;
         initialLossTime = lossTime;
         bloodMaterial = bloodRenderer.material;
         bloodMaterial.SetFloat("_Fill", 0.19f);
+        bloodObjectPos = bloodObject.transform.localPosition;
+        initialRotation = bloodObject.transform.localRotation;
 
         Debug.Log(bloodRenderer.material.name);
+        
     }
 
     private void Update()
     {
         LoseBlood(lossAmount, lossModifier);
-    
+        Bobble();
+
     }
+
 
     public void LoseBlood( float amount, float modifier)
     {
@@ -58,6 +71,21 @@ public class Blood : MonoBehaviour
 
     public void CheckDeath()
     {
+
+    }
+
+    void Bobble()
+    {
+    if(playerMover.playerVelocity.magnitude > 0.1f)
+        {
+            float frequency = bobFrequency;
+            float hBobValue = Mathf.Sin(Time.time * frequency) * defaultBobAmount;
+            float vBobValue = ((Mathf.Sin(Time.time * frequency * 2f) * 0.5f) + 0.5f) * defaultBobAmount;
+
+            bloodObjectPos.x = hBobValue;
+            bloodObjectPos.y = Mathf.Abs(vBobValue);
+            bloodObject.transform.localPosition = bloodObjectPos;
+        }
 
     }
 

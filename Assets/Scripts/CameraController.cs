@@ -1,3 +1,4 @@
+using Main.Game;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,8 +12,8 @@ public class CameraController : MonoBehaviour
     public float yRotationLimit;
 
     Vector2 camRotation = Vector2.zero;
-    const string xAxis = "Mouse X";
-    const string yAxis = "Mouse Y";
+    const string xAxis = GameConstants.MouseX;
+    const string yAxis = GameConstants.MouseY;
     
 
     // Start is called before the first frame update
