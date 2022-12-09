@@ -45,6 +45,7 @@ namespace Main.Game
 
             playerBlood.currentBlood += bloodAmount;
 
+            //Replace when object pool is done
             Destroy(gameObject);
         }
 

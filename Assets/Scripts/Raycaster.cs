@@ -9,6 +9,7 @@ namespace Main.Game
     public class Raycaster : MonoBehaviour
     {
         public GameManager gameManager;
+        public FinalChaseSequence FinalChaseSequence;
 
         public Light flashLight;
         public float maxDistance;
@@ -17,7 +18,7 @@ namespace Main.Game
         public float closeIntensity;
         public float initialIntensity;
         public float currentIntensity;
-        // Update is called once per frame
+   
         public TextMeshProUGUI uiBottomText;
         private void Start()
         {
@@ -86,6 +87,13 @@ namespace Main.Game
                                         StartCoroutine(buttonBehaviour.openCouroutine);
                                     }
                                     break;
+                            case ButtonBehaviour.ButtonState.CHASE:
+                                if (!FinalChaseSequence.isDoorOpening)
+                                {
+                                    StartCoroutine(FinalChaseSequence.finalHunt);
+                                }
+                                break;
+
                             }
                   
                       

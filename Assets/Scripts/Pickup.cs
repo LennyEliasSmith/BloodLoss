@@ -11,24 +11,7 @@ namespace Main.Game
         public Collider pickupCollider;
         public Rigidbody pickupRigidbody;
         // Start is called before the first frame update
-        void Start()
-        {
 
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-
-        }
-
-        void OnTriggerEnter(Collider other)
-        {
-            Blood blood = other.GetComponent<Blood>();
-            OnPickedUp(blood);
-
-            Debug.Log("Hello");
-        }
 
         protected virtual void OnPickedUp(Blood blood)
         {

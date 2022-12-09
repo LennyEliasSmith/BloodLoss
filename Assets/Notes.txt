@@ -5,3 +5,11 @@
 - 1st area: Pseudo hospital
 - 2nd area: Large space with loads of lamps and rows of computers (Images pop up on screen)
 - 3rd area: Hell room with enemy(?)
+	- Chase sequence
+- Ending room
+
+// Game Design
+- Blood loss
+	- Passive loss should be slow
+	- Faster loss when running
+	- Really slow loss when low - some sort of decal / indicator for low health

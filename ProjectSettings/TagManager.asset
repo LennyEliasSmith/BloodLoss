@@ -8,6 +8,7 @@ TagManager:
   - Scare
   - Terminal
   - UIManager
+  - Blood
   layers:
   - Default
   - TransparentFX

@@ -8,7 +8,8 @@ public class ButtonBehaviour : MonoBehaviour
     public enum ButtonState
     {
         DOOR,
-        SEQUENCE
+        SEQUENCE,
+        CHASE
     }
 
     public ButtonState state;
@@ -24,6 +25,8 @@ public class ButtonBehaviour : MonoBehaviour
     public int buttonTreshold;
 
     public IEnumerator openCouroutine;
+
+    public DoorOpen doorOpen;
 
     // Start is called before the first frame update
     void Start()
@@ -58,7 +61,7 @@ public class ButtonBehaviour : MonoBehaviour
         hasBeenPressed = true;
         float timer = 0;
         int i = 0;
-
+        doorOpen.OpenDoor();
         foreach (var item in affectedObjects)
         {
 
