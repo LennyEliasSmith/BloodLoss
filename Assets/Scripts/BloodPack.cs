@@ -14,7 +14,7 @@ namespace Main.Game
         }
 
         public BloodType type;
-
+        public bool hasBeenPickedUp = false;
         [HideInInspector] public float bloodAmount;
 
         [SerializeField] private float smallBloodAmount;
@@ -39,13 +39,14 @@ namespace Main.Game
             }
         }
 
-        protected override void OnPickedUp(Blood blood)
+        public override void OnPickedUp(Blood blood)
         {
             Blood playerBlood = blood.GetComponent<Blood>();
 
             playerBlood.currentBlood += bloodAmount;
 
             //Replace when object pool is done
+            hasBeenPickedUp = true;
             Destroy(gameObject);
         }
 

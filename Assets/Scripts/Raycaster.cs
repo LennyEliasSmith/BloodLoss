@@ -10,6 +10,7 @@ namespace Main.Game
     {
         public GameManager gameManager;
         public FinalChaseSequence FinalChaseSequence;
+        public Blood playerBlood;
 
         public Light flashLight;
         public float maxDistance;
@@ -105,6 +106,23 @@ namespace Main.Game
                     uiBottomText.text = GameConstants.empty;
                 }
 
+                if(hit.collider.tag == "Blood" && hit.distance <= 3f)
+                {
+                
+
+                    BloodPack bloodPack = hit.transform.gameObject.GetComponent<BloodPack>();
+                    if (!bloodPack.hasBeenPickedUp)
+                    {
+
+                        uiBottomText.text = "Press " + GameConstants.interactionInput;
+                    }
+
+                    if(!bloodPack.hasBeenPickedUp && Input.GetKey(KeyCode.E))
+                    {
+                        bloodPack.OnPickedUp(playerBlood);
+                    }
+
+                }
 
                 //Flashlight intensity
                 if(hit.distance > maxDistance)

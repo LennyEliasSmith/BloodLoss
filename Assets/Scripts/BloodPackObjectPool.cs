@@ -5,17 +5,28 @@ using UnityEngine;
 public class BloodPackObjectPool : MonoBehaviour
 {
 
-    public List<Transform> locations = new List<Transform>();
+    public Transform[] locations;
     public GameObject bloodPack;
+    public Transform poolLocation;
     // Start is called before the first frame update
     void Start()
     {
-        
+        SetPool();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void SetPool()
     {
-        
+        for (int i = 0; i < locations.Length; i++)
+        {
+            var instatiatedBloodPack = Instantiate(bloodPack, locations[i]);
+            instatiatedBloodPack.transform.parent = locations[i];
+            instatiatedBloodPack.transform.position= locations[i].position;
+
+        }
+    }
+
+    void returnToPool()
+    {
+
     }
 }

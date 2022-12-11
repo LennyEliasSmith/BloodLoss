@@ -26,8 +26,6 @@ public class ButtonBehaviour : MonoBehaviour
 
     public IEnumerator openCouroutine;
 
-    public DoorOpen doorOpen;
-
     // Start is called before the first frame update
     void Start()
     {
@@ -61,7 +59,6 @@ public class ButtonBehaviour : MonoBehaviour
         hasBeenPressed = true;
         float timer = 0;
         int i = 0;
-        doorOpen.OpenDoor();
         foreach (var item in affectedObjects)
         {
 

@@ -5,6 +5,7 @@ using UnityEngine;
 public class FinalChaseSequence : MonoBehaviour
 {
     public EnemySeeker[] enemySeekers;
+    public DoorOpen[] tubDoors;
 
     public GameObject door;
 
@@ -46,12 +47,16 @@ public class FinalChaseSequence : MonoBehaviour
     IEnumerator FinalHunt()
     {
         isDoorOpening = true;
+        tubDoors[0].OpenDoor();
         enemySeekers[0].isHunting = true;
         yield return new WaitForSeconds(secondHunterWaitTime);
+        tubDoors[1].OpenDoor();
         enemySeekers[1].isHunting = true;
         yield return new WaitForSeconds(thirdHunterWaitTime);
+        tubDoors[2].OpenDoor();
         enemySeekers[2].isHunting = true;
         yield return new WaitForSeconds(fourthHunterWaitTime);
+        tubDoors[3].OpenDoor();
         enemySeekers[3].isHunting = true;
     }
 }
