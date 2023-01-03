@@ -3,41 +3,53 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class EnemySeeker : MonoBehaviour
+namespace Main.Game
 {
-    public Animator anim;
-    public NavMeshAgent agent;
-    public float speed;
-    public Transform player;
-
-    public bool isRunning;
-    public bool isHunting;
-    public bool isSpawned;
-
-    public int distance = 10;
-
-    // Start is called before the first frame update
-    void Start()
+    public class EnemySeeker : MonoBehaviour
     {
-        player = GameObject.FindGameObjectWithTag("Player").transform;
-    }
+        public Animator anim;
+        public NavMeshAgent agent;
+        public float speed;
+        public Transform player;
 
-    // Update is called once per frame
-    void Update()
-    {
+        public bool isRunning;
+        public bool isHunting;
+        public bool isSpawned;
 
-        if (isHunting)
+        public int distance = 10;
+
+        // Start is called before the first frame update
+        void Start()
         {
-            ChasePlayer();
+            player = GameObject.FindGameObjectWithTag("Player").transform;
+        }
+
+        // Update is called once per frame
+        void Update()
+        {
+
+            if (isHunting)
+            {
+                ChasePlayer();
+            }
+        }
+
+        void ChasePlayer()
+        {
+            //agent.Move(player.position);
+            agent.SetDestination(player.position);
+            anim.Play("Armature_Run");
+        }
+
+
+        private void OnTriggerEnter(Collider other)
+        {
+            if (other.tag == GameConstants.PlayerTag)
+            {
+                Blood playerBlood = other.gameObject.GetComponent<Blood>();
+                playerBlood.TakeDamage();
+            }
         }
     }
-
-    void ChasePlayer()
-    {
-        //agent.Move(player.position);
-        agent.SetDestination(player.position);
-        anim.Play("Armature_Run");
-    }
-
-   
 }
+

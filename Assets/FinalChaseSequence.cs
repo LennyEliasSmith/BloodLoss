@@ -2,7 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FinalChaseSequence : MonoBehaviour
+namespace Main.Game
+{
+    public class FinalChaseSequence : MonoBehaviour
 {
     public EnemySeeker[] enemySeekers;
     public DoorOpen[] tubDoors;
@@ -38,7 +40,7 @@ public class FinalChaseSequence : MonoBehaviour
     {
         if (isDoorOpening)
         {
-            door.transform.position = Vector3.Lerp(door.transform.position, yPos,doorSpeed * Time.deltaTime);
+            door.transform.position = Vector3.Lerp(door.transform.position, yPos, doorSpeed * Time.deltaTime);
         }
     }
 
@@ -60,3 +62,5 @@ public class FinalChaseSequence : MonoBehaviour
         enemySeekers[3].isHunting = true;
     }
 }
+}
+

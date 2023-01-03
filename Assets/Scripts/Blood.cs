@@ -24,11 +24,16 @@ namespace Main.Game
         public float lossAmount;
         public float lossModifier;
         public float lossLerpModifier;
+        public float invincibilityTime;
 
         private float initialLossTime;
+        public float enemyDamage;
 
         public float defaultBobAmount;
         public float bobFrequency;
+
+        public bool canTakeDamage = true;
+
         void Start()
         {
             currentBlood = maxBlood;
@@ -73,7 +78,7 @@ namespace Main.Game
 
         public void CheckDeath()
         {
-
+            Debug.Log("Ya Dead");
         }
 
         void Bobble()
@@ -89,6 +94,33 @@ namespace Main.Game
                 bloodObject.transform.localPosition = bloodObjectPos;
             }
 
+        }
+
+        public void TakeDamage()
+        {
+            if (canTakeDamage)
+            {
+                StartCoroutine(PlayerTakeDamage());
+            }
+        }
+
+        IEnumerator PlayerTakeDamage()
+        {
+            canTakeDamage = false;
+            float initialBlood = currentBlood;
+            float loss = currentBlood - enemyDamage;
+
+            currentBlood = Mathf.Lerp(initialBlood, loss, (lossRate * 2) * Time.deltaTime);
+            bloodMaterial.SetFloat("_Fill", currentBlood);
+            currentBlood = Mathf.Clamp(currentBlood, 0f, maxBlood);
+
+            if (currentBlood <= 0)
+            {
+                CheckDeath();
+            }
+
+            yield return new WaitForSeconds(invincibilityTime);
+            canTakeDamage = true;
         }
 
     }

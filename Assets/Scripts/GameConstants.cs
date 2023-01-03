@@ -12,6 +12,7 @@ namespace Main.Game
         public const string MouseY = "Mouse Y";
 
         public const string ScareTag = "Scare";
+        public const string PlayerTag = "Player";
 
         public static string enemyGlitchAnim = "Armature_glitcyboi";
         public static string enemyWalkAnim = "Armature_Walk";
