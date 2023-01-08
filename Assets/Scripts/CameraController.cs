@@ -19,21 +19,25 @@ public class CameraController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Cursor.visible = false;
+       
     }
 
     // Update is called once per frame
     void Update()
     {
-        camRotation.x += Input.GetAxisRaw(xAxis) * camSensitivity;
-        camRotation.y += Input.GetAxisRaw(yAxis) * camSensitivity;
-        camRotation.y = Mathf.Clamp(camRotation.y, -yRotationLimit, yRotationLimit);
+        if(GameConstants.gamestates == GameConstants.Gamestates.RUNNING)
+        {
 
-        var xQuaterinion = Quaternion.AngleAxis(camRotation.x, Vector3.up);
-        var yQuaternion = Quaternion.AngleAxis(camRotation.y, Vector3.left);
+            
+            camRotation.x += Input.GetAxisRaw(xAxis) * camSensitivity;
+            camRotation.y += Input.GetAxisRaw(yAxis) * camSensitivity;
+            camRotation.y = Mathf.Clamp(camRotation.y, -yRotationLimit, yRotationLimit);
 
-        transform.localRotation = xQuaterinion * yQuaternion;
-        
-    
+            var xQuaterinion = Quaternion.AngleAxis(camRotation.x, Vector3.up);
+            var yQuaternion = Quaternion.AngleAxis(camRotation.y, Vector3.left);
+
+            transform.localRotation = xQuaterinion * yQuaternion;
+
+        }
     }
 }

@@ -1,10 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using Main.Game;
 public class SequenceBehaviour : MonoBehaviour
 {
     public First_ChaseSequence sequence;
+    public RespawnController respawnController;
     public bool isExitTrigger;
     private void OnTriggerEnter(Collider other)
     {
@@ -15,6 +16,7 @@ public class SequenceBehaviour : MonoBehaviour
         else if (other.tag == "Player" && isExitTrigger)
         {
             sequence.CloseExit();
+            respawnController.currentRespawnLocation = 2;
         }
     }
 }

@@ -5,6 +5,28 @@ namespace Main.Game
 {
     public class GameConstants
     {
+        public enum Gamestates
+        {
+            RUNNING,
+            PAUSED,
+            HUNTED,
+            END
+        }
+        public enum PlayerStates
+        {
+            BLEEDING,
+            NORMAL
+        }
+        public enum StageStates
+        {
+            STATIC,
+            CHANGING
+        }
+
+        public static Gamestates gamestates;
+        public static PlayerStates playerStates;
+        public static StageStates stageStates;
+
         public const string VerticalAxis = "Vertical";
         public const string HorizontalAxis = "Horizontal";
 

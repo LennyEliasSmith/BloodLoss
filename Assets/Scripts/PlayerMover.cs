@@ -47,41 +47,44 @@ namespace Main.Game
 
         void FixedUpdate()
         {
-            playerVelocity = (transform.position - previosPosition) / Time.deltaTime;
-            howfast = playerVelocity.magnitude;
-
-            if (Input.GetButton("Fire3"))
+            if(GameConstants.gamestates == GameConstants.Gamestates.RUNNING)
             {
-                desiredSpeed = runSpeed;
-                stepInterval = runStepInterval;
-            }
-            else
-            {
-                desiredSpeed = initialSpeed;
-                stepInterval = initialStepInterval;
-            }
+                playerVelocity = (transform.position - previosPosition) / Time.deltaTime;
+                howfast = playerVelocity.magnitude;
 
-            speed = Mathf.Lerp(speed, desiredSpeed, slowdownSpeed * Time.fixedDeltaTime);
-            Mover();
-            if (playerVelocity.magnitude > 0.1f)
-            {
-                animator.Play("Armature_Walk");
-
-
-                if (timer <= 0)
+                if (Input.GetButton("Fire3"))
                 {
-                    Step();
-                    timer = stepInterval;
+                    desiredSpeed = runSpeed;
+                    stepInterval = runStepInterval;
                 }
-                timer -= Time.fixedDeltaTime;
-            }
-            else
-            {
-                animator.Play("Armature_0Tpose");
-            }
-            previosPosition = transform.position;
+                else
+                {
+                    desiredSpeed = initialSpeed;
+                    stepInterval = initialStepInterval;
+                }
 
-           
+                speed = Mathf.Lerp(speed, desiredSpeed, slowdownSpeed * Time.fixedDeltaTime);
+                Mover();
+                if (playerVelocity.magnitude > 0.1f)
+                {
+                    animator.Play("Armature_Walk");
+
+
+                    if (timer <= 0)
+                    {
+                        Step();
+                        timer = stepInterval;
+                    }
+                    timer -= Time.fixedDeltaTime;
+                }
+                else
+                {
+                    animator.Play("Armature_0Tpose");
+                }
+                previosPosition = transform.position;
+
+            }
+
         }
 
 

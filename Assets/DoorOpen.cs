@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.ProBuilder.Shapes;
+using UnityEngine.AI;
 
 public class DoorOpen : MonoBehaviour
 {
@@ -11,8 +12,13 @@ public class DoorOpen : MonoBehaviour
     public GameObject door;
     public Renderer doorRenderer;
     public float negativeTime;
+    public NavMeshObstacle obstacle;
     // Start is called before the first frame update
 
+    private void Start()
+    {
+        obstacle.enabled = false;
+    }
     public void OpenDoor()
     {
         float elapsedTime = 0;
@@ -26,5 +32,13 @@ public class DoorOpen : MonoBehaviour
             elapsedTime += Time.deltaTime;
             emptyTime -= Time.deltaTime;
         }
+
+        float obstacleWatitTime = 5f;
+
+        while(obstacleWatitTime > 0)
+        {
+            obstacleWatitTime -= Time.deltaTime;
+        }
+        obstacle.enabled = true;
     }
 }

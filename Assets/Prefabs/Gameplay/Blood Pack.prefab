@@ -163,11 +163,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pickupCollider: {fileID: 5900434233964936736}
-  type: 0
+  type: 1
   hasBeenPickedUp: 0
   bloodAmount: 0
   smallBloodAmount: 0.15
-  mediumBloodAmount: 0.5
+  mediumBloodAmount: 0.3
   largeBloodAmount: 1
 --- !u!65 &5900434233964936736
 BoxCollider:

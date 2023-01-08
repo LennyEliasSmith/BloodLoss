@@ -7,14 +7,17 @@ namespace Main.Game
 {
     public class Blood : MonoBehaviour
     {
+        public GameObject Player;
         public PlayerData playerData;
         public PlayerMover playerMover;
+        public RespawnController respawnController;
 
         public GameObject bloodObject;
         public Vector3 bloodObjectPos;
         private Quaternion initialRotation;
 
         public float maxBlood;
+        public float minBlood;
         [SerializeField] public float currentBlood;
         public Renderer bloodRenderer;
         Material bloodMaterial;
@@ -49,8 +52,12 @@ namespace Main.Game
 
         private void Update()
         {
-            LoseBlood(lossAmount, lossModifier);
-            Bobble();
+            if (GameConstants.gamestates == GameConstants.Gamestates.RUNNING)
+            {
+                LoseBlood(lossAmount, lossModifier);
+                Bobble();
+            }
+
 
         }
 
@@ -62,27 +69,37 @@ namespace Main.Game
 
             currentBlood = Mathf.Lerp(initialBlood, loss, lossRate * Time.deltaTime);
             bloodMaterial.SetFloat("_Fill", currentBlood);
-            currentBlood = Mathf.Clamp(currentBlood, 0f, maxBlood);
+            currentBlood = Mathf.Clamp(currentBlood, minBlood, maxBlood);
 
             if (currentBlood <= 0)
             {
                 CheckDeath();
             }
 
+#if UNITY_EDITOR
             //Cheat
             if (Input.GetKeyDown(KeyCode.G))
             {
                 currentBlood += 0.5f;
             }
+
+            if (Input.GetKeyDown(KeyCode.H))
+            {
+                StartCoroutine(PlayerTakeDamage());
+            }
+#endif
         }
 
         public void CheckDeath()
         {
             Debug.Log("Ya Dead");
+            Player.transform.position = respawnController.respawnLocations[respawnController.currentRespawnLocation].position;
+            currentBlood = maxBlood;
         }
 
         void Bobble()
         {
+       
             if (playerMover.playerVelocity.magnitude > 0.1f)
             {
                 float frequency = bobFrequency;
@@ -100,17 +117,17 @@ namespace Main.Game
         {
             if (canTakeDamage)
             {
+                Debug.Log("DamgeStart");
                 StartCoroutine(PlayerTakeDamage());
             }
         }
 
         IEnumerator PlayerTakeDamage()
         {
+            Debug.Log("DamgeTaken");
             canTakeDamage = false;
-            float initialBlood = currentBlood;
-            float loss = currentBlood - enemyDamage;
-
-            currentBlood = Mathf.Lerp(initialBlood, loss, (lossRate * 2) * Time.deltaTime);
+            //float initialBlood = currentBlood;
+            currentBlood -= enemyDamage;
             bloodMaterial.SetFloat("_Fill", currentBlood);
             currentBlood = Mathf.Clamp(currentBlood, 0f, maxBlood);
 
