@@ -6,6 +6,7 @@ namespace Main.Game
 {
     public class FinalChaseSequence : MonoBehaviour
     {
+        public AudioManager audioManager;
         public EnemySeeker[] enemySeekers;
         public DoorOpen[] tubDoors;
 
@@ -32,6 +33,7 @@ namespace Main.Game
         // Start is called before the first frame update
         void Start()
         {
+            audioManager.SetTrack(audioManager._chaseSequenceTrack);
             finalHunt = FinalHunt();
             initialDoorPos = door.transform.position;
             yPos = new Vector3(door.transform.position.x, doorDestination.transform.position.y, door.transform.position.z);

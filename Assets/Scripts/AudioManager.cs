@@ -2,19 +2,25 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
+using Main.Game;
 
 public class AudioManager : MonoBehaviour
 {
 
-    public static AudioMixer audioMixer;
-    // Start is called before the first frame update
-    void Start()
+    public  AudioMixer audioMixer;
+    public AudioSource audioSource;
+    public AudioClip _ambienceTrack;
+    public AudioClip _chaseSequenceTrack;
+
+    private void Start()
     {
+        audioSource.clip = _ambienceTrack;
     }
 
-    // Update is called once per frame
-    void Update()
+    public void SetTrack(AudioClip desiredTrack)
     {
-        
+        audioSource.Stop();
+        audioSource.clip = desiredTrack;
+        audioSource.Play();
     }
 }

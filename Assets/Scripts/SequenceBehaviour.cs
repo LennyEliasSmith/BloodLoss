@@ -9,7 +9,7 @@ public class SequenceBehaviour : MonoBehaviour
     public bool isExitTrigger;
     private void OnTriggerEnter(Collider other)
     {
-        if(other.tag == "Player" && !isExitTrigger )
+        if(other.tag == "Player" && !isExitTrigger && !sequence.room1Init)
         {
             sequence.InitRoom1();
         }

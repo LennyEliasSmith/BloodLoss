@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class First_ChaseSequence : MonoBehaviour
 {
+    public AudioManager audioManager;
     public GameObject Door1;
     public GameObject Door2;
 
@@ -18,6 +19,8 @@ public class First_ChaseSequence : MonoBehaviour
     public MeshRenderer[] roomLightMaterials;
 
     public EnemySeeker enemySeeker;
+
+    public bool room1Init;
 
     private Vector3 door1InitialPosition;
     private Vector3 door2InitialPosition;
@@ -38,16 +41,18 @@ public class First_ChaseSequence : MonoBehaviour
 
     public void ResetRoom()
     {
+        room1Init = false;
         Door1.transform.position = door1InitialPosition;
         Door2.transform.position = door2InitialPosition;
     }
 
     public void InitRoom1()
     {
-
+        room1Init = true;
         enemySeeker.isHunting = true;
         float elapsedTime = 0;
 
+        audioManager.SetTrack(audioManager._chaseSequenceTrack);
 
         foreach(var roomlight in roomLights)
         {
@@ -66,10 +71,13 @@ public class First_ChaseSequence : MonoBehaviour
             Door2.transform.position = Vector3.Lerp(Door2.transform.position, door2Destination.position, elapsedTime / doorSpeed);
             elapsedTime += Time.deltaTime;
         }
+
+        audioManager.SetTrack(audioManager._chaseSequenceTrack);
     }
 
     public void CloseExit()
     {
+        audioManager.SetTrack(audioManager._ambienceTrack);
         enemySeeker.isHunting = false;
         enemySeeker.agent.isStopped = true;
         float elapsedTime = 0;

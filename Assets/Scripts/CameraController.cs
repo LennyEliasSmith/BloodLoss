@@ -14,13 +14,6 @@ public class CameraController : MonoBehaviour
     Vector2 camRotation = Vector2.zero;
     const string xAxis = GameConstants.MouseX;
     const string yAxis = GameConstants.MouseY;
-    
-
-    // Start is called before the first frame update
-    void Start()
-    {
-       
-    }
 
     // Update is called once per frame
     void Update()
