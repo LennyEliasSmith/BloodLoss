@@ -6,6 +6,7 @@ using Main.Game;
 
 public class UIManager : MonoBehaviour
 {
+    AudioManager audioManager;
     public GameManager gameManager;
     public TextMeshProUGUI bottomText;
     public GameObject startText;
@@ -17,6 +18,8 @@ public class UIManager : MonoBehaviour
     void OnEnable()
     {
         bottomText.text = "";
+        audioManager = FindObjectOfType<AudioManager>();
+        audioManager.SetTrack(audioManager._whiteNoise);
     }
 
 
@@ -68,7 +71,9 @@ public class UIManager : MonoBehaviour
     public void StartGame()
     {
         startMenu.SetActive(false);
-      
+        audioManager.audioSource.clip = audioManager._ambienceTrack;
+        audioManager.audioSource.Play();
+
     }
 
     public void Continue()

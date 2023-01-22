@@ -16,11 +16,12 @@ namespace Main.Game
 
         public bool isDoorOpening;
 
-            public GameObject elevator;
+        public GameObject elevator;
 
-
+        public Transform entranceDoor;
         public Transform doorDestination;
 
+        public Vector3 entranceDoorInitialPos;
         public Vector3 initialDoorPos;
 
         public float secondHunterWaitTime;
@@ -33,10 +34,12 @@ namespace Main.Game
         // Start is called before the first frame update
         void Start()
         {
-            audioManager.SetTrack(audioManager._chaseSequenceTrack);
+           
             finalHunt = FinalHunt();
             initialDoorPos = door.transform.position;
+            entranceDoorInitialPos = entranceDoor.position;
             yPos = new Vector3(door.transform.position.x, doorDestination.transform.position.y, door.transform.position.z);
+            Reset.CallReset += ResetValues;
         }
 
         // Update is called once per frame
@@ -48,13 +51,18 @@ namespace Main.Game
             }
         }
 
-
+        public void ResetValues()
+        {
+            door.transform.position = initialDoorPos;
+        }
 
         IEnumerator FinalHunt()
         {
+            audioManager.SetTrack(audioManager._chaseSequenceTrack);
             isDoorOpening = true;
             tubDoors[0].OpenDoor();
             enemySeekers[0].isHunting = true;
+            enemySeekers[0].enabled = true;
             yield return new WaitForSeconds(secondHunterWaitTime);
             tubDoors[1].OpenDoor();
             enemySeekers[1].isHunting = true;
@@ -76,10 +84,6 @@ namespace Main.Game
            //Stop hunters and move elevator up
         }
 
-        public void ResetSequence()
-        {
-
-        }
 
     }
 }

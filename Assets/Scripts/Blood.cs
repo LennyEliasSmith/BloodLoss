@@ -11,6 +11,7 @@ namespace Main.Game
         public PlayerData playerData;
         public PlayerMover playerMover;
         public RespawnController respawnController;
+        public Reset reset;
 
         public GameObject bloodObject;
         public Vector3 bloodObjectPos;
@@ -95,6 +96,7 @@ namespace Main.Game
             Debug.Log("Ya Dead");
             Player.transform.position = respawnController.respawnLocations[respawnController.currentRespawnLocation].position;
             currentBlood = maxBlood;
+            reset.ResetAll();
         }
 
         void Bobble()

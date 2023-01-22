@@ -9,13 +9,9 @@ public class AudioManager : MonoBehaviour
 
     public  AudioMixer audioMixer;
     public AudioSource audioSource;
+    public AudioClip _whiteNoise;
     public AudioClip _ambienceTrack;
     public AudioClip _chaseSequenceTrack;
-
-    private void Start()
-    {
-        audioSource.clip = _ambienceTrack;
-    }
 
     public void SetTrack(AudioClip desiredTrack)
     {

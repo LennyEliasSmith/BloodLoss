@@ -22,28 +22,49 @@ public class First_ChaseSequence : MonoBehaviour
 
     public bool room1Init;
 
-    private Vector3 door1InitialPosition;
-    private Vector3 door2InitialPosition;
+
 
     public static int s_ButtonsPressed;
     public static int s_buttonPressedThreshold;
     public int buttonsPressedThreshold;
+
+    private Vector3 initialEnemyPosition;
+    private Vector3 door1InitialPosition;
+    private Vector3 door2InitialPosition;
+    private float initialRoomLightTemperature;
+
+
     // Start is called before the first frame update
     void Start()
     {
         s_buttonPressedThreshold = buttonsPressedThreshold;
         door1InitialPosition = Door1.transform.position;
         door2InitialPosition = Door2.transform.position;
-        ResetRoom();
+        initialEnemyPosition = enemySeeker.transform.position;
+        initialRoomLightTemperature = roomLights[0].colorTemperature;
+        Reset.CallReset += ResetValues;
     }
 
 
 
-    public void ResetRoom()
+    public void ResetValues() 
     {
         room1Init = false;
+        enemySeeker.isHunting = false;
+        enemySeeker.transform.position = initialEnemyPosition;
         Door1.transform.position = door1InitialPosition;
         Door2.transform.position = door2InitialPosition;
+
+        foreach (var roomlight in roomLights)
+        {
+            roomlight.colorTemperature = initialRoomLightTemperature;
+        }
+
+        foreach (var renderer in roomLightMaterials)
+        {
+            renderer.material.SetColor("_EmissionColor", Color.white);
+
+        }
     }
 
     public void InitRoom1()

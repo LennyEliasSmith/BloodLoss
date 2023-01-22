@@ -12,6 +12,8 @@ public class BloodPackObjectPool : MonoBehaviour
     void Start()
     {
         SetPool();
+
+        Reset.CallReset += ResetPool;
     }
 
     public void SetPool()
@@ -25,7 +27,7 @@ public class BloodPackObjectPool : MonoBehaviour
         }
     }
 
-    void returnToPool()
+    void ResetPool()
     {
 
     }

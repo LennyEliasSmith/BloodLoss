@@ -17,12 +17,12 @@ public class ButtonBehaviour : MonoBehaviour
     public Light screenLight;
     public GameObject[] affectedObjects;
     public GameObject[] endPoint;
-    [HideInInspector] public Transform initialPositions;
     public bool hasBeenPressed = false;
     public float doorTime;
 
     public int buttonsPressed;
     public int buttonTreshold;
+    private List<Vector3> initialPositions = new List<Vector3>();
 
     public IEnumerator openCouroutine;
 
@@ -31,28 +31,21 @@ public class ButtonBehaviour : MonoBehaviour
     {
         hasBeenPressed = false;
         openCouroutine = Open();
+        Reset.CallReset += ResetDoor;
+
+        
+        int i = 0;
+        foreach (var item in affectedObjects)
+        {
+            if (affectedObjects[i] != null)
+            {
+                initialPositions.Add(affectedObjects[i].transform.position);
+                Debug.Log(initialPositions[i] + ", "+ affectedObjects[i].transform.position);
+                i++;
+            }
+           
+        }
     }
-
-    // Update is called once per frame
-
-
-    //private void OnTriggerStay(Collider other)
-    //{
-    //    if (Input.GetKeyDown(KeyCode.E) && !hasMoved)
-    //    {
-    //        Debug.Log("PressedButton");
-    //        StartCoroutine("Open");
-    //    }
-    //}
-
-    //private void OnTriggerEnter(Collider other)
-    //{
-    //    if (Input.GetKeyDown(KeyCode.E) && !hasMoved)
-    //    {
-    //        Debug.Log("PressedButton");
-    //        StartCoroutine("Open");
-    //    }
-    //}
 
     IEnumerator Open()
     {
@@ -78,6 +71,34 @@ public class ButtonBehaviour : MonoBehaviour
 
     public void ResetDoor()
     {
-        
+        switch (state)
+        {
+            case ButtonState.DOOR:
+                hasBeenPressed = false;
+                LoopThroughObjects();
+                break;
+            case ButtonState.CHASE:
+                hasBeenPressed = false;
+                LoopThroughObjects();
+                break;
+            case ButtonState.SEQUENCE:
+                hasBeenPressed = false;
+                LoopThroughObjects();
+                break;
+        }
+    }
+
+
+    public void LoopThroughObjects()
+    {
+        int i = 0;
+        foreach (var item in affectedObjects)
+        {
+            if (affectedObjects[i] != null)
+            {
+               affectedObjects[i].transform.position = initialPositions[i];
+                i++;
+            }
+        }
     }
 }

@@ -22,6 +22,10 @@ namespace Main.Game
         void Start()
         {
             player = GameObject.FindGameObjectWithTag("Player").transform;
+            if (isSpawned)
+            {
+                anim.enabled = false;
+            }
         }
 
         // Update is called once per frame
@@ -39,6 +43,11 @@ namespace Main.Game
             //agent.Move(player.position);
             agent.SetDestination(player.position);
             anim.Play("Armature_Run");
+        }
+
+        public void MoveToPoint(Transform movePoint)
+        {
+
         }
 
 
