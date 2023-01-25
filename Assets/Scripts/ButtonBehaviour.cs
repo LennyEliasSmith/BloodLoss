@@ -9,7 +9,8 @@ public class ButtonBehaviour : MonoBehaviour
     {
         DOOR,
         SEQUENCE,
-        CHASE
+        CHASE,
+        ELEVATOR
     }
 
     public ButtonState state;
@@ -40,7 +41,6 @@ public class ButtonBehaviour : MonoBehaviour
             if (affectedObjects[i] != null)
             {
                 initialPositions.Add(affectedObjects[i].transform.position);
-                Debug.Log(initialPositions[i] + ", "+ affectedObjects[i].transform.position);
                 i++;
             }
            
@@ -85,7 +85,14 @@ public class ButtonBehaviour : MonoBehaviour
                 hasBeenPressed = false;
                 LoopThroughObjects();
                 break;
+            case ButtonState.ELEVATOR:
+                hasBeenPressed = false;
+                LoopThroughObjects();
+                break;
         }
+
+        screenRenderer.materials[2].SetColor("_EmissionColor", Color.green);
+
     }
 
 

@@ -88,11 +88,14 @@ namespace Main.Game
                                         StartCoroutine(buttonBehaviour.openCouroutine);
                                     }
                                     break;
-                            case ButtonBehaviour.ButtonState.CHASE:
-                                if (!FinalChaseSequence.isDoorOpening)
-                                {
-                                    StartCoroutine(FinalChaseSequence.finalHunt);
-                                }
+                                case ButtonBehaviour.ButtonState.CHASE:
+                                    if (!FinalChaseSequence.isDoorOpening)
+                                    {
+                                        StartCoroutine(FinalChaseSequence.finalHunt);
+                                    }
+                                    break;
+                            case ButtonBehaviour.ButtonState.ELEVATOR:
+                                FinalChaseSequence.MoveElevator();
                                 break;
 
                             }

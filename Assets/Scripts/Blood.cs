@@ -47,8 +47,6 @@ namespace Main.Game
             bloodObjectPos = bloodObject.transform.localPosition;
             initialRotation = bloodObject.transform.localRotation;
 
-            Debug.Log(bloodRenderer.material.name);
-
         }
 
         private void Update()

@@ -3,7 +3,17 @@ guid: 8049e0f8be6e4e641831f71bdcfd9d68
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: ExitSign_Icon
+    second: {fileID: 2100000, guid: ebe27dca417952646ab38d63cee5e958, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: ExitSign_Rim
+    second: {fileID: 2100000, guid: c493c1d19e48e0c4d82a4ed2ce518eab, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

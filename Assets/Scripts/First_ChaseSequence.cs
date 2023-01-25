@@ -54,6 +54,7 @@ public class First_ChaseSequence : MonoBehaviour
         enemySeeker.transform.position = initialEnemyPosition;
         Door1.transform.position = door1InitialPosition;
         Door2.transform.position = door2InitialPosition;
+        s_ButtonsPressed = 0;
 
         foreach (var roomlight in roomLights)
         {
