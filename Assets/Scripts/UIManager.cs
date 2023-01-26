@@ -76,8 +76,15 @@ public class UIManager : MonoBehaviour
 
             if(endText.activeInHierarchy && !mainMenu.activeInHierarchy)
             {
-                StartCoroutine(EndMethod(mainMenuGroup, mainMenu));
                 StartCoroutine(StartMethod(endTextGroup, endText));
+                StartCoroutine(FadeInImage());
+                if(fadeImage.alpha >= 0)
+                {
+                    mainMenu.SetActive(true);
+                    mainMenuGroup.alpha = 1;
+                    StartCoroutine(FadeOutImage());
+                    GameConstants.gamestates = GameConstants.Gamestates.PAUSED;
+                }
             }
 
         }
@@ -154,7 +161,7 @@ public class UIManager : MonoBehaviour
     }
     IEnumerator EndMethod(CanvasGroup group, GameObject uiObject)
     {
-        audioManager.audioSource.clip = audioManager._ambienceTrack;
+       
         uiObject.SetActive(true);
         while (group.alpha < 0)
         {
