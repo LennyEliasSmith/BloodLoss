@@ -12,6 +12,7 @@ public class AudioManager : MonoBehaviour
     public AudioClip _whiteNoise;
     public AudioClip _ambienceTrack;
     public AudioClip _chaseSequenceTrack;
+    public AudioClip doorOpen;
 
     public void SetTrack(AudioClip desiredTrack)
     {

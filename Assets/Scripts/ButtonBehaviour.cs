@@ -25,13 +25,10 @@ public class ButtonBehaviour : MonoBehaviour
     public int buttonTreshold;
     private List<Vector3> initialPositions = new List<Vector3>();
 
-    public IEnumerator openCouroutine;
-
     // Start is called before the first frame update
     void Start()
     {
         hasBeenPressed = false;
-        openCouroutine = Open();
         Reset.CallReset += ResetDoor;
 
         
@@ -47,7 +44,7 @@ public class ButtonBehaviour : MonoBehaviour
         }
     }
 
-    IEnumerator Open()
+    public void Open()
     {
         hasBeenPressed = true;
         float timer = 0;
@@ -60,13 +57,10 @@ public class ButtonBehaviour : MonoBehaviour
 
                 item.transform.position = Vector3.Lerp(item.transform.position, endPoint[i].transform.position, timer);
                 timer += Time.deltaTime;
-                yield return null;
             }
             timer = 0;
             i++;
         }
-      
-        yield break;
     }
 
     public void ResetDoor()

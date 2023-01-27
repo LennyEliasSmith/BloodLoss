@@ -7,6 +7,7 @@ namespace Main.Game
 {
     public class Blood : MonoBehaviour
     {
+        public GameManager manager;
         public GameObject Player;
         public PlayerData playerData;
         public PlayerMover playerMover;
@@ -46,6 +47,7 @@ namespace Main.Game
             bloodMaterial.SetFloat("_Fill", 0.19f);
             bloodObjectPos = bloodObject.transform.localPosition;
             initialRotation = bloodObject.transform.localRotation;
+            Reset.CallReset += ResetValues;
 
         }
 
@@ -91,9 +93,6 @@ namespace Main.Game
 
         public void CheckDeath()
         {
-            Debug.Log("Ya Dead");
-            Player.transform.position = respawnController.respawnLocations[respawnController.currentRespawnLocation].position;
-            currentBlood = maxBlood;
             reset.ResetAll();
         }
 
@@ -118,6 +117,7 @@ namespace Main.Game
             if (canTakeDamage)
             {
                 Debug.Log("DamgeStart");
+                StartCoroutine(manager.uIManager.bloodPulseEnumerator);
                 StartCoroutine(PlayerTakeDamage());
             }
         }
@@ -138,6 +138,14 @@ namespace Main.Game
 
             yield return new WaitForSeconds(invincibilityTime);
             canTakeDamage = true;
+        }
+
+        
+        public void ResetValues()
+        {
+            Debug.Log("Ya Dead");
+            Player.transform.position = respawnController.respawnLocations[respawnController.currentRespawnLocation].position;
+            currentBlood = maxBlood;
         }
 
     }

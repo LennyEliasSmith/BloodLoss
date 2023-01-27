@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5318107355434050563}
+  - component: {fileID: 1825639092198980116}
   m_Layer: 0
   m_Name: SecurityCamera
   m_TagString: Untagged
@@ -33,6 +34,26 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &1825639092198980116
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4793631940084874937}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 65cd1e168e1e24f4ab840363e431b507, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &5446814573546404837
 GameObject:
   m_ObjectHideFlags: 0
@@ -97,7 +118,7 @@ MeshRenderer:
   - {fileID: -6671147912969563682, guid: fcff21b8eaf702b4aa66586b75dd1b9c, type: 3}
   - {fileID: -5010634963166868839, guid: fcff21b8eaf702b4aa66586b75dd1b9c, type: 3}
   - {fileID: -8945313310897169937, guid: fcff21b8eaf702b4aa66586b75dd1b9c, type: 3}
-  - {fileID: -1098061830420168517, guid: fcff21b8eaf702b4aa66586b75dd1b9c, type: 3}
+  - {fileID: 2100000, guid: cee05e396be81cb44b0d6f20c18e8b65, type: 2}
   - {fileID: 8506338143665236335, guid: fcff21b8eaf702b4aa66586b75dd1b9c, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0

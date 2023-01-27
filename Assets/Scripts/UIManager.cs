@@ -8,6 +8,8 @@ using Main.Game;
 public class UIManager : MonoBehaviour
 {
     AudioManager audioManager;
+    Reset reset;
+    RespawnController respawnController;
     public GameManager gameManager;
 
     public TextMeshProUGUI bottomText;
@@ -24,16 +26,24 @@ public class UIManager : MonoBehaviour
     public CanvasGroup endTextGroup;
     public bool isEnding;
 
+    public GameObject credits;
+
     public CanvasGroup fadeImage;
     public float fadeSpeed;
     public IEnumerator fadeIn;
     public IEnumerator fadeOut;
     public IEnumerator endTextEnumerator;
+
+    public CanvasGroup bloodPulse;
+    public IEnumerator bloodPulseEnumerator;
+    public float pulseSpeed;
     // Start is called before the first frame update
     void OnEnable()
     {
         bottomText.text = "";
         audioManager = FindObjectOfType<AudioManager>();
+        reset = FindObjectOfType<Reset>();
+        respawnController = FindObjectOfType<RespawnController>();
         audioManager.SetTrack(audioManager._whiteNoise);
 
     }
@@ -43,6 +53,7 @@ public class UIManager : MonoBehaviour
         fadeIn = FadeInImage();
         fadeOut = FadeOutImage();
         endTextEnumerator = EndText();
+        bloodPulseEnumerator = FlashBlood();
         fadeImage.alpha = 0;
     }
 
@@ -83,6 +94,8 @@ public class UIManager : MonoBehaviour
                     mainMenu.SetActive(true);
                     mainMenuGroup.alpha = 1;
                     StartCoroutine(FadeOutImage());
+                    respawnController.currentRespawnLocation = 0;
+                    reset.ResetAll();
                     GameConstants.gamestates = GameConstants.Gamestates.PAUSED;
                 }
             }
@@ -106,7 +119,14 @@ public class UIManager : MonoBehaviour
 
     public void MainMenu()
     {
+        mainMenu.SetActive(true);
+        credits.SetActive(false);
+    }
 
+    public void Credits()
+    {
+        mainMenu.SetActive(false);
+        credits.SetActive(true);
     }
 
     public void StartGame()
@@ -116,6 +136,10 @@ public class UIManager : MonoBehaviour
 
         StartCoroutine(StartMethod(mainMenuGroup, mainMenu));
 
+        if (!startText.activeInHierarchy)
+        {
+            GameConstants.gamestates = GameConstants.Gamestates.RUNNING;
+        }
     }
 
     public void Continue()
@@ -178,6 +202,16 @@ public class UIManager : MonoBehaviour
         while (endTextGroup.alpha < 1)
         {
             endTextGroup.alpha += fadeSpeed * Time.deltaTime;
+            yield return null;
+        }
+    }
+
+    IEnumerator FlashBlood()
+    {
+        bloodPulse.alpha = 1;
+        while (bloodPulse.alpha > 0)
+        {
+            bloodPulse.alpha -= pulseSpeed * Time.deltaTime;
             yield return null;
         }
     }

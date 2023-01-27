@@ -32,7 +32,7 @@ namespace Main.Game
         void Update()
         {
 
-            if (isHunting)
+            if (isHunting && GameConstants.gamestates == GameConstants.Gamestates.RUNNING)
             {
                 ChasePlayer();
             }

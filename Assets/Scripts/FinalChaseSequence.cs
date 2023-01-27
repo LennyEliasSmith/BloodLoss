@@ -6,6 +6,7 @@ namespace Main.Game
 {
     public class FinalChaseSequence : MonoBehaviour
     {
+     
         public AudioManager audioManager;
         public EnemySeeker[] enemySeekers;
         public DoorOpen[] tubDoors;
@@ -71,6 +72,7 @@ namespace Main.Game
         public void ResetValues()
         {
             door.transform.position = initialDoorPos;
+            audioManager.audioSource.clip = audioManager._ambienceTrack;
         }
 
         IEnumerator FinalHunt()

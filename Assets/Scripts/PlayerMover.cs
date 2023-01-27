@@ -65,7 +65,7 @@ namespace Main.Game
 
                 speed = Mathf.Lerp(speed, desiredSpeed, slowdownSpeed * Time.fixedDeltaTime);
                 Mover();
-                if (playerVelocity.magnitude > 0.1f)
+                if (playerVelocity.magnitude > 0.1f && transform.parent == null)
                 {
                     animator.Play("Armature_Walk");
 

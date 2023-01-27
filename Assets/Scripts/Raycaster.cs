@@ -10,6 +10,7 @@ namespace Main.Game
     {
         public GameManager gameManager;
         public FinalChaseSequence FinalChaseSequence;
+        public AudioManager audioManager;
         public Blood playerBlood;
 
         public Light flashLight;
@@ -71,7 +72,8 @@ namespace Main.Game
                                 case ButtonBehaviour.ButtonState.DOOR:
                                     buttonBehaviour.screenRenderer.materials[2].SetColor("_EmissionColor", Color.green);
                                     buttonBehaviour.screenLight.color = Color.green;
-                                    StartCoroutine(buttonBehaviour.openCouroutine);
+                                    audioManager.audioSource.PlayOneShot(audioManager.doorOpen);
+                                    buttonBehaviour.Open();
                                     break;
 
                                 case ButtonBehaviour.ButtonState.SEQUENCE:
@@ -85,7 +87,8 @@ namespace Main.Game
                                     }
                                     if (First_ChaseSequence.s_ButtonsPressed == First_ChaseSequence.s_buttonPressedThreshold)
                                     {
-                                        StartCoroutine(buttonBehaviour.openCouroutine);
+                                    audioManager.audioSource.PlayOneShot(audioManager.doorOpen);
+                                    buttonBehaviour.Open();
                                     }
                                     break;
                                 case ButtonBehaviour.ButtonState.CHASE:
