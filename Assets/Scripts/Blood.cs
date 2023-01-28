@@ -117,7 +117,6 @@ namespace Main.Game
             if (canTakeDamage)
             {
                 Debug.Log("DamgeStart");
-                StartCoroutine(manager.uIManager.bloodPulseEnumerator);
                 StartCoroutine(PlayerTakeDamage());
             }
         }
@@ -125,6 +124,7 @@ namespace Main.Game
         IEnumerator PlayerTakeDamage()
         {
             Debug.Log("DamgeTaken");
+            manager.uIManager.FlashBlood();
             canTakeDamage = false;
             //float initialBlood = currentBlood;
             currentBlood -= enemyDamage;

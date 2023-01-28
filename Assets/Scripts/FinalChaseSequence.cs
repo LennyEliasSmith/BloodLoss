@@ -52,7 +52,10 @@ namespace Main.Game
             //elevatorDesiredPos.position = new Vector3(elevator.transform.position.x, desiredY, elevator.transform.position.z);
             Reset.CallReset += ResetValues;
 
-           
+            //foreach (var enemy in enemySeekers)
+            //{
+            //    enemy.anim.SetFloat("")
+            //}
         }
 
         // Update is called once per frame

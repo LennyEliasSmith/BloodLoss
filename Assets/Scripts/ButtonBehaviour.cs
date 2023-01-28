@@ -20,6 +20,7 @@ public class ButtonBehaviour : MonoBehaviour
     public GameObject[] endPoint;
     public bool hasBeenPressed = false;
     public float doorTime;
+    public float doorSpeed;
 
     public int buttonsPressed;
     public int buttonTreshold;
@@ -46,21 +47,7 @@ public class ButtonBehaviour : MonoBehaviour
 
     public void Open()
     {
-        hasBeenPressed = true;
-        float timer = 0;
-        int i = 0;
-        foreach (var item in affectedObjects)
-        {
-
-            while (timer < doorTime)
-            {
-
-                item.transform.position = Vector3.Lerp(item.transform.position, endPoint[i].transform.position, timer);
-                timer += Time.deltaTime;
-            }
-            timer = 0;
-            i++;
-        }
+        StartCoroutine(OpenDoor());
     }
 
     public void ResetDoor()
@@ -100,6 +87,26 @@ public class ButtonBehaviour : MonoBehaviour
                affectedObjects[i].transform.position = initialPositions[i];
                 i++;
             }
+        }
+    }
+
+
+    IEnumerator OpenDoor()
+    {
+        hasBeenPressed = true;
+        float timer = 0;
+        int i = 0;
+        foreach (var item in affectedObjects)
+        {
+
+            while (timer < doorTime)
+            {
+                item.transform.position = Vector3.Lerp(item.transform.position, endPoint[i].transform.position, doorSpeed * Time.deltaTime);
+                timer += Time.deltaTime;
+                yield return null;
+            }
+            timer = 0;
+            i++;
         }
     }
 }

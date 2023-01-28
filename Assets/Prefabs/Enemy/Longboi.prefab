@@ -731,7 +731,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7913723454039493352}
-  - component: {fileID: 1646472668767148767}
   - component: {fileID: 2678528395863964638}
   - component: {fileID: 4167141100799744369}
   m_Layer: 0
@@ -758,26 +757,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 172.621, z: 0}
---- !u!114 &1646472668767148767
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7392906320615297106}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 56ae94d2df43c844cb827948a9b6e4ad, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  anim: {fileID: 2678528395863964638}
-  agent: {fileID: 4167141100799744369}
-  speed: 0
-  player: {fileID: 0}
-  isRunning: 0
-  isHunting: 0
-  isSpawned: 0
-  distance: 10
 --- !u!95 &2678528395863964638
 Animator:
   serializedVersion: 4

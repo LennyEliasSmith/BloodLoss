@@ -97,6 +97,7 @@ GameObject:
   - component: {fileID: 3806620364721393165}
   - component: {fileID: 251091729249436072}
   - component: {fileID: 2637132257967699298}
+  - component: {fileID: 32466571521699919}
   m_Layer: 0
   m_Name: Filing_Cabinet
   m_TagString: Untagged
@@ -173,6 +174,19 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &32466571521699919
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4582418810758026423}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 56.688633, y: 149.58005, z: 87.69736}
+  m_Center: {x: -28.344313, y: 74.79002, z: 43.84868}
 --- !u!1 &6601861209052775741
 GameObject:
   m_ObjectHideFlags: 0

@@ -35,8 +35,11 @@ public class UIManager : MonoBehaviour
     public IEnumerator endTextEnumerator;
 
     public CanvasGroup bloodPulse;
-    public IEnumerator bloodPulseEnumerator;
     public float pulseSpeed;
+
+    public GameObject settings;
+
+    public bool isFlashing = false;
     // Start is called before the first frame update
     void OnEnable()
     {
@@ -53,7 +56,6 @@ public class UIManager : MonoBehaviour
         fadeIn = FadeInImage();
         fadeOut = FadeOutImage();
         endTextEnumerator = EndText();
-        bloodPulseEnumerator = FlashBlood();
         fadeImage.alpha = 0;
     }
 
@@ -123,6 +125,15 @@ public class UIManager : MonoBehaviour
         credits.SetActive(false);
     }
 
+    public void SettingsOn()
+    {
+        settings.SetActive(true);
+    }
+
+    public void SettingsOff()
+    {
+        settings.SetActive(false);
+    }
     public void Credits()
     {
         mainMenu.SetActive(false);
@@ -206,7 +217,12 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    IEnumerator FlashBlood()
+    public void FlashBlood()
+    {
+        StartCoroutine(Pulse());
+    }
+
+    IEnumerator Pulse()
     {
         bloodPulse.alpha = 1;
         while (bloodPulse.alpha > 0)

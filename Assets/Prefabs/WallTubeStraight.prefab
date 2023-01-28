@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1000161364155958324}
   - component: {fileID: 3028035505599475966}
   - component: {fileID: 6529605697000459626}
+  - component: {fileID: 3261141269557974313}
   m_Layer: 0
   m_Name: WallTubeStraight
   m_TagString: Untagged
@@ -98,3 +99,19 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -1778129004834778868, guid: b3e2855fd66c5b149901a33ed0e29d74, type: 3}
+--- !u!208 &3261141269557974313
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3532302393841111339}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 1, y: 1, z: 1}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
