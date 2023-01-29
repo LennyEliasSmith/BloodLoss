@@ -18,7 +18,7 @@ namespace Main.Game
         public bool isDoorOpening;
 
         public Transform elevatorDesiredPos;
-        private Transform elevatorInitialPos;
+        private Vector3 elevatorInitialPos;
         public float elevatorSpeed;
         public GameObject elevator;
         public GameObject easle1;
@@ -28,8 +28,8 @@ namespace Main.Game
         public Transform entranceDoor;
         public Transform doorDestination;
 
-        public Vector3 entranceDoorInitialPos;
-        public Vector3 initialDoorPos;
+       private Vector3 entranceDoorInitialPos;
+        private Vector3 initialDoorPos;
 
         public float secondHunterWaitTime;
         public float thirdHunterWaitTime;
@@ -39,7 +39,7 @@ namespace Main.Game
         public bool finalHuntInProgress;
         public bool elevatorMoving;
 
-        private Vector3 yPos;
+        private List<Transform> enemyInitialPositions = new List<Transform>();
         // Start is called before the first frame update
         void Start()
         {
@@ -47,15 +47,16 @@ namespace Main.Game
             finalHunt = FinalHunt();
             initialDoorPos = door.transform.position;
             entranceDoorInitialPos = entranceDoor.position;
-            elevatorInitialPos.position = elevator.transform.position;
+            elevatorInitialPos = elevator.transform.position;
             doorDestination.position = new Vector3(door.transform.position.x, doorDestination.position.y, door.transform.position.z); ;
             //elevatorDesiredPos.position = new Vector3(elevator.transform.position.x, desiredY, elevator.transform.position.z);
             Reset.CallReset += ResetValues;
 
-            //foreach (var enemy in enemySeekers)
-            //{
-            //    enemy.anim.SetFloat("")
-            //}
+            int i = 0;
+            foreach (var enemy in enemySeekers)
+            {
+                enemyInitialPositions[i].position = enemy.transform.position;
+            }
         }
 
         // Update is called once per frame
@@ -76,6 +77,13 @@ namespace Main.Game
         {
             door.transform.position = initialDoorPos;
             audioManager.audioSource.clip = audioManager._ambienceTrack;
+
+            int i = 0;
+            foreach (var enemy in enemySeekers)
+            {
+                enemy.isHunting = false;
+                enemy.transform.position = enemyInitialPositions[i].position;
+            }
         }
 
         IEnumerator FinalHunt()

@@ -9,6 +9,7 @@ TagManager:
   - Terminal
   - UIManager
   - Blood
+  - KeyCard
   layers:
   - Default
   - TransparentFX

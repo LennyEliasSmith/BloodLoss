@@ -58,9 +58,17 @@ namespace Main.Game
                 {
                     ButtonBehaviour buttonBehaviour = hit.transform.gameObject.GetComponent<ButtonBehaviour>();
 
-                    if (!buttonBehaviour.hasBeenPressed)
+                    if (!buttonBehaviour.hasBeenPressed && buttonBehaviour.keyCard == null)
                     {
+                        uiBottomText.text = "Press " + GameConstants.interactionInput;
+                        
+                    }
+                    else if(!buttonBehaviour.hasBeenPressed && buttonBehaviour.keyCard != null && !buttonBehaviour.hasKeyCard)
+                    {
+                        uiBottomText.text = GameConstants.keyCardInteractionInput;
 
+                    }else if(!buttonBehaviour.hasBeenPressed && buttonBehaviour.keyCard != null && buttonBehaviour.hasKeyCard)
+                    {
                         uiBottomText.text = "Press " + GameConstants.interactionInput;
                     }
 
@@ -97,9 +105,23 @@ namespace Main.Game
                                         StartCoroutine(FinalChaseSequence.finalHunt);
                                     }
                                     break;
-                            case ButtonBehaviour.ButtonState.ELEVATOR:
-                                FinalChaseSequence.MoveElevator();
+
+                                case ButtonBehaviour.ButtonState.ELEVATOR:
+                                    FinalChaseSequence.MoveElevator();
+                                 break;
+
+                                case ButtonBehaviour.ButtonState.KEYCARD:
+
+                                if (buttonBehaviour.hasKeyCard)
+                                {
+                                    buttonBehaviour.screenRenderer.materials[2].SetColor("_EmissionColor", Color.green);
+                                    buttonBehaviour.screenLight.color = Color.green;
+                                    audioManager.audioSource.PlayOneShot(audioManager.doorOpen);
+                                    buttonBehaviour.Open();
+                                }
+                             
                                 break;
+
 
                             }
                   
@@ -112,9 +134,20 @@ namespace Main.Game
                     uiBottomText.text = GameConstants.empty;
                 }
 
-                if(hit.collider.tag == "Blood" && hit.distance <= 3f)
+                if(hit.collider.tag == "KeyCard" && hit.distance <= 3f)
                 {
-                
+                    ParentContext parent = hit.collider.GetComponent<ParentContext>();
+                    uiBottomText.text = "Press " + GameConstants.interactionInput;
+
+                    if (!parent.parentTerminal.hasKeyCard && Input.GetKey(KeyCode.E))
+                    {
+                        parent.parentTerminal.TakeCard();
+                    }
+                }
+
+
+                if (hit.collider.tag == "Blood" && hit.distance <= 3f)
+                {
 
                     BloodPack bloodPack = hit.transform.gameObject.GetComponent<BloodPack>();
                     if (!bloodPack.hasBeenPickedUp)

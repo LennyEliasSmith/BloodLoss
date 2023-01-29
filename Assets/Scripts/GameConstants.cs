@@ -40,6 +40,7 @@ namespace Main.Game
         public static string enemyWalkAnim = "Armature_Walk";
 
         public static string interactionInput = "E";
+        public static string keyCardInteractionInput = "No Key Card";
 
         public static string empty = " ";
 

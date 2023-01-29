@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4509863806592249897}
   - component: {fileID: 664732473461931916}
   - component: {fileID: 3376976105734769478}
+  - component: {fileID: 314031313718980486}
   m_Layer: 0
   m_Name: LunchTable
   m_TagString: Untagged
@@ -84,3 +85,16 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &314031313718980486
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3881418503602973331}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 3.0000007, y: 1.0000001, z: 1.5681697}
+  m_Center: {x: 0.0000036303577, y: 0.50000006, z: 0.00004285378}

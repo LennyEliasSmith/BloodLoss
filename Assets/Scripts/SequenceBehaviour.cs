@@ -9,11 +9,11 @@ public class SequenceBehaviour : MonoBehaviour
     public bool isExitTrigger;
     private void OnTriggerEnter(Collider other)
     {
-        if(other.tag == "Player" && !isExitTrigger && !sequence.room1Init)
+        if(other.tag == GameConstants.PlayerTag && !isExitTrigger && !sequence.room1Init)
         {
             sequence.InitRoom1();
         }
-        else if (other.tag == "Player" && isExitTrigger)
+        else if (other.tag == GameConstants.PlayerTag && isExitTrigger)
         {
             sequence.CloseExit();
             respawnController.currentRespawnLocation = 2;

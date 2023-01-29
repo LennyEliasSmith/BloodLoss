@@ -40,6 +40,7 @@ public class UIManager : MonoBehaviour
     public GameObject settings;
 
     public bool isFlashing = false;
+
     // Start is called before the first frame update
     void OnEnable()
     {
@@ -231,4 +232,7 @@ public class UIManager : MonoBehaviour
             yield return null;
         }
     }
+
+
+ 
 }

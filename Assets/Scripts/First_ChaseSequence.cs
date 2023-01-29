@@ -72,6 +72,8 @@ public class First_ChaseSequence : MonoBehaviour
     {
         room1Init = true;
         enemySeeker.isHunting = true;
+        enemySeeker.agent.isStopped = false;
+        enemySeeker.player = GameObject.FindGameObjectWithTag(GameConstants.PlayerTag).transform;
         float elapsedTime = 0;
 
         audioManager.SetTrack(audioManager._chaseSequenceTrack);
@@ -99,21 +101,8 @@ public class First_ChaseSequence : MonoBehaviour
 
     public void CloseExit()
     {
-        audioManager.SetTrack(audioManager._ambienceTrack);
-        enemySeeker.isHunting = false;
-        enemySeeker.agent.isStopped = true;
-        float elapsedTime = 0;
 
-       
-        while (elapsedTime < doorSpeed)
-        {
-            Door2.transform.position = Vector3.Lerp(Door2.transform.position, door2Destination.position, elapsedTime / doorSpeed);
-            elapsedTime += Time.deltaTime;
-        }
-    }
-
-    public void ResolveRoom()
-    {
+        StartCoroutine(Close());
 
     }
 
@@ -122,6 +111,22 @@ public class First_ChaseSequence : MonoBehaviour
         foreach (var roomlight in roomLights)
         {
             roomlight.colorTemperature = 8000;
+        }
+    }
+
+
+    IEnumerator Close()
+    {
+        audioManager.SetTrack(audioManager._ambienceTrack);
+        enemySeeker.isHunting = false;
+        enemySeeker.agent.isStopped = true;
+
+        float elapsedTime = 0;
+        while (elapsedTime < doorSpeed)
+        {
+            Door2.transform.position = Vector3.Lerp(Door2.transform.position, door2Destination.position, doorSpeed * Time.deltaTime);
+            elapsedTime += Time.deltaTime;
+            yield return null;
         }
     }
 }

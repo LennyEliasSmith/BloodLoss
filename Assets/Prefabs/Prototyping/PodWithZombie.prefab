@@ -509,6 +509,7 @@ GameObject:
   - component: {fileID: 7440222126341097629}
   - component: {fileID: 5831916394477717304}
   - component: {fileID: 8578185512308700146}
+  - component: {fileID: 7158051420819608754}
   m_Layer: 0
   m_Name: PodWithZombie
   m_TagString: Untagged
@@ -584,6 +585,20 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &7158051420819608754
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7785362792258753063}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 2534964839176971238, guid: b7f4e266f35afd140b8faf321ca1b4e0, type: 3}
 --- !u!1 &8306597705647967158
 GameObject:
   m_ObjectHideFlags: 0

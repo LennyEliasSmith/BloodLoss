@@ -10,7 +10,8 @@ public class ButtonBehaviour : MonoBehaviour
         DOOR,
         SEQUENCE,
         CHASE,
-        ELEVATOR
+        ELEVATOR,
+        KEYCARD
     }
 
     public ButtonState state;
@@ -25,6 +26,9 @@ public class ButtonBehaviour : MonoBehaviour
     public int buttonsPressed;
     public int buttonTreshold;
     private List<Vector3> initialPositions = new List<Vector3>();
+    private List<Quaternion> initialRotations = new List<Quaternion>();
+    public bool hasKeyCard = false;
+    public GameObject keyCard;
 
     // Start is called before the first frame update
     void Start()
@@ -39,6 +43,7 @@ public class ButtonBehaviour : MonoBehaviour
             if (affectedObjects[i] != null)
             {
                 initialPositions.Add(affectedObjects[i].transform.position);
+                initialRotations.Add(affectedObjects[i].transform.rotation);
                 i++;
             }
            
@@ -47,7 +52,15 @@ public class ButtonBehaviour : MonoBehaviour
 
     public void Open()
     {
-        StartCoroutine(OpenDoor());
+        if(state != ButtonState.KEYCARD)
+        {
+            StartCoroutine(OpenDoor());
+        }
+        else
+        {
+            StartCoroutine(OpenSwivel());
+        }
+       
     }
 
     public void ResetDoor()
@@ -55,24 +68,26 @@ public class ButtonBehaviour : MonoBehaviour
         switch (state)
         {
             case ButtonState.DOOR:
-                hasBeenPressed = false;
                 LoopThroughObjects();
                 break;
             case ButtonState.CHASE:
-                hasBeenPressed = false;
                 LoopThroughObjects();
                 break;
             case ButtonState.SEQUENCE:
-                hasBeenPressed = false;
                 LoopThroughObjects();
                 break;
             case ButtonState.ELEVATOR:
-                hasBeenPressed = false;
                 LoopThroughObjects();
+                break;
+            case ButtonState.KEYCARD:
+                LoopThroughObjects();
+                hasKeyCard = false;
+                keyCard.SetActive(true);
                 break;
         }
 
-        screenRenderer.materials[2].SetColor("_EmissionColor", Color.green);
+    
+        screenRenderer.materials[2].SetColor("_EmissionColor", Color.yellow);
 
     }
 
@@ -82,10 +97,12 @@ public class ButtonBehaviour : MonoBehaviour
         int i = 0;
         foreach (var item in affectedObjects)
         {
+            hasBeenPressed = false;
             if (affectedObjects[i] != null)
             {
-               affectedObjects[i].transform.position = initialPositions[i];
-                i++;
+                affectedObjects[i].transform.position = initialPositions[i];
+                affectedObjects[i].transform.rotation = initialRotations[i];
+               i++;
             }
         }
     }
@@ -108,5 +125,31 @@ public class ButtonBehaviour : MonoBehaviour
             timer = 0;
             i++;
         }
+    }
+
+    IEnumerator OpenSwivel()
+    {
+        Debug.Log("Swiveling");
+        hasBeenPressed = true;
+        float timer = 0;
+        int i = 0;
+        foreach (var item in affectedObjects)
+        {
+
+            while (timer < doorTime)
+            {
+                item.transform.rotation = Quaternion.Lerp(item.transform.rotation, endPoint[i].transform.rotation, doorSpeed * Time.deltaTime);
+                timer += Time.deltaTime;
+                yield return null;
+            }
+            timer = 0;
+            i++;
+        }
+    }
+
+    public void TakeCard()
+    {
+        keyCard.SetActive(false);
+        hasKeyCard = true;
     }
 }
