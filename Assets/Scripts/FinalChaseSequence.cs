@@ -56,6 +56,7 @@ namespace Main.Game
             foreach (var enemy in enemySeekers)
             {
                 enemyInitialPositions[i].position = enemy.transform.position;
+                i++;
             }
         }
 
