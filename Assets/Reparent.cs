@@ -8,6 +8,7 @@ public class Reparent : MonoBehaviour
 
     public GameObject parent;
     public GameObject player;
+    public RespawnController respawnController;
     // Start is called before the first frame update
 
     private void OnTriggerEnter(Collider other)
@@ -23,6 +24,7 @@ public class Reparent : MonoBehaviour
         if (other.tag == GameConstants.PlayerTag)
         {
             player.transform.SetParent(null, true);
+            player.transform.position = respawnController.respawnLocations[0].position;
         }
     }
 }

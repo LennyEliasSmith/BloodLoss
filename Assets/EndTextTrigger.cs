@@ -16,7 +16,7 @@ public class EndTextTrigger : MonoBehaviour
     {
         if (other.tag == GameConstants.PlayerTag &&  !uiManager.isEnding)
         {
-            StartCoroutine(uiManager.endTextEnumerator);
+            uiManager.StartEndText();
         }
     }
 }

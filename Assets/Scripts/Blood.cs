@@ -59,7 +59,6 @@ namespace Main.Game
                 Bobble();
             }
 
-
         }
 
 
@@ -71,11 +70,6 @@ namespace Main.Game
             currentBlood = Mathf.Lerp(initialBlood, loss, lossRate * Time.deltaTime);
             bloodMaterial.SetFloat("_Fill", currentBlood);
             currentBlood = Mathf.Clamp(currentBlood, minBlood, maxBlood);
-
-            if (currentBlood <= 0)
-            {
-                CheckDeath();
-            }
 
 #if UNITY_EDITOR
             //Cheat
@@ -119,6 +113,13 @@ namespace Main.Game
                 Debug.Log("DamgeStart");
                 StartCoroutine(PlayerTakeDamage());
             }
+
+            if (currentBlood <= 0)
+            {
+                CheckDeath();
+            }
+
+
         }
 
         IEnumerator PlayerTakeDamage()
@@ -129,13 +130,7 @@ namespace Main.Game
             //float initialBlood = currentBlood;
             currentBlood -= enemyDamage;
             bloodMaterial.SetFloat("_Fill", currentBlood);
-            currentBlood = Mathf.Clamp(currentBlood, 0f, maxBlood);
-
-            if (currentBlood <= 0)
-            {
-                CheckDeath();
-            }
-
+            currentBlood = Mathf.Clamp(currentBlood, -0.1f, maxBlood);
             yield return new WaitForSeconds(invincibilityTime);
             canTakeDamage = true;
         }
@@ -144,6 +139,7 @@ namespace Main.Game
         public void ResetValues()
         {
             Debug.Log("Ya Dead");
+            canTakeDamage = true;
             Player.transform.position = respawnController.respawnLocations[respawnController.currentRespawnLocation].position;
             currentBlood = maxBlood;
         }

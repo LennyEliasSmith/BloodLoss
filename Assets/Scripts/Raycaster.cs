@@ -102,7 +102,7 @@ namespace Main.Game
                                 case ButtonBehaviour.ButtonState.CHASE:
                                     if (!FinalChaseSequence.isDoorOpening)
                                     {
-                                        StartCoroutine(FinalChaseSequence.finalHunt);
+                                    FinalChaseSequence.StartFinalHunt();
                                     }
                                     break;
 

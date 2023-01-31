@@ -6,8 +6,9 @@ using UnityEngine.UI;
 using Main.Game;
 
 public class UIManager : MonoBehaviour
-{
-    AudioManager audioManager;
+{   
+    [HideInInspector]
+    public AudioManager audioManager;
     Reset reset;
     RespawnController respawnController;
     public GameManager gameManager;
@@ -32,7 +33,6 @@ public class UIManager : MonoBehaviour
     public float fadeSpeed;
     public IEnumerator fadeIn;
     public IEnumerator fadeOut;
-    public IEnumerator endTextEnumerator;
 
     public CanvasGroup bloodPulse;
     public float pulseSpeed;
@@ -56,7 +56,6 @@ public class UIManager : MonoBehaviour
     {
         fadeIn = FadeInImage();
         fadeOut = FadeOutImage();
-        endTextEnumerator = EndText();
         fadeImage.alpha = 0;
     }
 
@@ -98,21 +97,29 @@ public class UIManager : MonoBehaviour
                     mainMenuGroup.alpha = 1;
                     StartCoroutine(FadeOutImage());
                     respawnController.currentRespawnLocation = 0;
+                    
                     reset.ResetAll();
-                    GameConstants.gamestates = GameConstants.Gamestates.PAUSED;
+                    
                 }
+                GameConstants.gamestates = GameConstants.Gamestates.PAUSED;
+                Cursor.visible = true;
+            }
+
+            if(mainMenu.activeInHierarchy && !Cursor.visible)
+            {
+                Cursor.visible = true;
             }
 
         }
 
         if (Input.GetKeyDown(KeyCode.Tab))
         {
-            if (!pauseMenu.activeInHierarchy)
+            if (!pauseMenu.activeInHierarchy && !mainMenu.activeInHierarchy)
             {
                 pauseMenu.SetActive(true);
                 GameConstants.gamestates = GameConstants.Gamestates.PAUSED;
             }
-            else
+            else if(pauseMenu.activeInHierarchy)
             {
                 pauseMenu.SetActive(false);
                 GameConstants.gamestates = GameConstants.Gamestates.RUNNING;
@@ -141,6 +148,10 @@ public class UIManager : MonoBehaviour
         credits.SetActive(true);
     }
 
+    public void StartEndText()
+    {
+        StartCoroutine(EndText());
+    }
     public void StartGame()
     {
         audioManager.audioSource.clip = audioManager._ambienceTrack;
@@ -216,6 +227,7 @@ public class UIManager : MonoBehaviour
             endTextGroup.alpha += fadeSpeed * Time.deltaTime;
             yield return null;
         }
+        GameConstants.gamestates = GameConstants.Gamestates.PAUSED;
     }
 
     public void FlashBlood()

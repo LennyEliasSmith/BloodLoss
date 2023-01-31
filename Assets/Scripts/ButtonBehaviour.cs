@@ -31,12 +31,15 @@ public class ButtonBehaviour : MonoBehaviour
     public GameObject keyCard;
 
     // Start is called before the first frame update
+
+    private void Awake()
+    {
+        Reset.CallReset += this.ResetValues;
+    }
     void Start()
     {
-        hasBeenPressed = false;
-        Reset.CallReset += ResetDoor;
 
-        
+        hasBeenPressed = false;
         int i = 0;
         foreach (var item in affectedObjects)
         {
@@ -63,32 +66,16 @@ public class ButtonBehaviour : MonoBehaviour
        
     }
 
-    public void ResetDoor()
+    public void ResetValues()
     {
-        switch (state)
+        LoopThroughObjects();
+        if(keyCard != null)
         {
-            case ButtonState.DOOR:
-                LoopThroughObjects();
-                break;
-            case ButtonState.CHASE:
-                LoopThroughObjects();
-                break;
-            case ButtonState.SEQUENCE:
-                LoopThroughObjects();
-                break;
-            case ButtonState.ELEVATOR:
-                LoopThroughObjects();
-                break;
-            case ButtonState.KEYCARD:
-                LoopThroughObjects();
-                hasKeyCard = false;
-                keyCard.SetActive(true);
-                break;
+            hasKeyCard = false;
+            screenLight.color = Color.red;
+            keyCard.SetActive(true);
         }
-
-    
         screenRenderer.materials[2].SetColor("_EmissionColor", Color.yellow);
-
     }
 
 

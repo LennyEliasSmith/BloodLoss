@@ -11,6 +11,7 @@ public class First_ChaseSequence : MonoBehaviour
 
     public Transform door1Destination;
     public Transform door2Destination;
+    public Transform chaseSequenceSpawn;
 
     public float doorSpeed;
 
@@ -35,6 +36,9 @@ public class First_ChaseSequence : MonoBehaviour
 
 
     // Start is called before the first frame update
+    
+
+    
     void Start()
     {
         s_buttonPressedThreshold = buttonsPressedThreshold;
@@ -51,7 +55,7 @@ public class First_ChaseSequence : MonoBehaviour
     {
         room1Init = false;
         enemySeeker.isHunting = false;
-        enemySeeker.transform.position = initialEnemyPosition;
+        enemySeeker.transform.position = chaseSequenceSpawn.position;
         Door1.transform.position = door1InitialPosition;
         Door2.transform.position = door2InitialPosition;
         s_ButtonsPressed = 0;
