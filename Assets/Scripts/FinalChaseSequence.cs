@@ -15,6 +15,8 @@ namespace Main.Game
         public float desiredDoorY;
         public float doorSpeed;
 
+        public bool finalHuntInProgress;
+        public bool elevatorMoving;
         public bool isDoorOpening;
 
         public Transform elevatorDesiredPos;
@@ -35,16 +37,13 @@ namespace Main.Game
         public float thirdHunterWaitTime;
         public float fourthHunterWaitTime;
 
-        public IEnumerator finalHunt;
-        public bool finalHuntInProgress;
-        public bool elevatorMoving;
 
         private List<Vector3> enemyInitialPositions = new List<Vector3>();
+
         // Start is called before the first frame update
         void Start()
         {
             elevatorMoving = false;
-            finalHunt = FinalHunt();
             initialDoorPos = door.transform.position;
             entranceDoorInitialPos = entranceDoor.position;
             elevatorInitialPos = elevator.transform.position;
@@ -75,23 +74,26 @@ namespace Main.Game
 
         public void ResetValues()
         {
+
+            isDoorOpening = false;
+            finalHuntInProgress = false;
+            elevatorMoving = false;
+
             door.transform.position = initialDoorPos;
             audioManager.audioSource.clip = audioManager._ambienceTrack;
             elevator.transform.position = elevatorInitialPos;
 
             easle1.transform.rotation = new Quaternion(0f, 90f, 0f, 0f);
-            easle2.transform.rotation = new Quaternion(0, 90, 0, 0);
+            easle2.transform.rotation = new Quaternion(0, 0, 0, 0);
 
-            isDoorOpening = false;
-            finalHuntInProgress = false;
-            elevatorMoving = false;
+
 
             int i = 0;
             foreach (var enemy in enemySeekers)
             {
                 enemy.anim.Play(GameConstants.enemyGlitchAnim);
                 enemy.isHunting = false;
-                enemy.transform.position = enemyInitialPositions[i];
+                enemy.agent.transform.position = enemyInitialPositions[i];
                 i++;
             }
         }
@@ -99,23 +101,26 @@ namespace Main.Game
         IEnumerator FinalHunt()
         {
             finalHuntInProgress = true;
-            audioManager.SetTrack(audioManager._chaseSequenceTrack);
             isDoorOpening = true;
+
             tubDoors[0].OpenDoor();
             enemySeekers[0].isHunting = true;
             enemySeekers[0].agent.isStopped = false;
             enemySeekers[0].enabled = true;
             yield return new WaitForSeconds(secondHunterWaitTime);
+
             tubDoors[1].OpenDoor();
             enemySeekers[1].isHunting = true;
             enemySeekers[0].agent.isStopped = false;
             enemySeekers[0].enabled = true;
             yield return new WaitForSeconds(thirdHunterWaitTime);
+
             tubDoors[2].OpenDoor();
             enemySeekers[2].isHunting = true;
             enemySeekers[0].agent.isStopped = false;
             enemySeekers[0].enabled = true;
             yield return new WaitForSeconds(fourthHunterWaitTime);
+
             tubDoors[3].OpenDoor();
             enemySeekers[3].isHunting = true;
             enemySeekers[0].agent.isStopped = false;
@@ -123,6 +128,10 @@ namespace Main.Game
         }
         public void StartFinalHunt()
         {
+            if (audioManager.audioSource.clip != audioManager._chaseSequenceTrack)
+            {
+                audioManager.SetTrack(audioManager._chaseSequenceTrack);
+            }
             StartCoroutine(FinalHunt());
         }
         public void ResolveHunt()

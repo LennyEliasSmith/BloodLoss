@@ -55,7 +55,8 @@ public class First_ChaseSequence : MonoBehaviour
     {
         room1Init = false;
         enemySeeker.isHunting = false;
-        enemySeeker.transform.position = chaseSequenceSpawn.position;
+        //enemySeeker.transform.position = chaseSequenceSpawn.position;
+        enemySeeker.agent.transform.position = chaseSequenceSpawn.position;
         Door1.transform.position = door1InitialPosition;
         Door2.transform.position = door2InitialPosition;
         s_ButtonsPressed = 0;
@@ -80,7 +81,11 @@ public class First_ChaseSequence : MonoBehaviour
         enemySeeker.player = GameObject.FindGameObjectWithTag(GameConstants.PlayerTag).transform;
         float elapsedTime = 0;
 
-        audioManager.SetTrack(audioManager._chaseSequenceTrack);
+        if (audioManager.audioSource.clip != audioManager._chaseSequenceTrack)
+        {
+            audioManager.SetTrack(audioManager._chaseSequenceTrack);
+        }
+        
 
         foreach(var roomlight in roomLights)
         {
@@ -99,8 +104,6 @@ public class First_ChaseSequence : MonoBehaviour
             Door2.transform.position = Vector3.Lerp(Door2.transform.position, door2Destination.position, elapsedTime / doorSpeed);
             elapsedTime += Time.deltaTime;
         }
-
-        audioManager.SetTrack(audioManager._chaseSequenceTrack);
     }
 
     public void CloseExit()
