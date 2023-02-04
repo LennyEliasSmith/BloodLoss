@@ -10,7 +10,7 @@ PrefabInstance:
     - target: {fileID: 1340700821511807154, guid: 1acd2bdc1b62af4459b5f530a522853f,
         type: 3}
       propertyPath: m_Name
-      value: Fridge_Closed
+      value: Fridge_Closed Variant
       objectReference: {fileID: 0}
     - target: {fileID: 1634180011321147245, guid: 1acd2bdc1b62af4459b5f530a522853f,
         type: 3}
@@ -3364,3 +3364,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1acd2bdc1b62af4459b5f530a522853f, type: 3}
+--- !u!1 &2365239916791238692 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1340700821511807154, guid: 1acd2bdc1b62af4459b5f530a522853f,
+    type: 3}
+  m_PrefabInstance: {fileID: 3623187024542150806}
+  m_PrefabAsset: {fileID: 0}
+--- !u!64 &9139724041856983954
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2365239916791238692}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 0}

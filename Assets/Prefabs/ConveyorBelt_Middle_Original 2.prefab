@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1385076295872476146}
   - component: {fileID: 6827333017645550603}
+  - component: {fileID: 4259397022927575872}
   m_Layer: 0
   m_Name: ConveyorBelt_Middle_Original 2
   m_TagString: Untagged
@@ -87,3 +88,17 @@ SkinnedMeshRenderer:
     m_Center: {x: 1, y: -0.24999999, z: 0.5}
     m_Extent: {x: 1, y: 0.26999998, z: 0.5}
   m_DirtyAABB: 0
+--- !u!64 &4259397022927575872
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1761777313507879240}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 0}

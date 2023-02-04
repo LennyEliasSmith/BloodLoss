@@ -41,4 +41,9 @@ public class DoorOpen : MonoBehaviour
         }
         obstacle.enabled = true;
     }
+
+    void ResetValues()
+    {
+        doorRenderer.material.SetFloat("_Fill", 1);
+    }
 }

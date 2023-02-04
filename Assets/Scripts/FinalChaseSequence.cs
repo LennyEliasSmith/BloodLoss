@@ -9,6 +9,7 @@ namespace Main.Game
      
         public AudioManager audioManager;
         public EnemySeeker[] enemySeekers;
+        public Transform[] initialEnemyPosition;
         public DoorOpen[] tubDoors;
 
         public GameObject door;
@@ -38,8 +39,6 @@ namespace Main.Game
         public float fourthHunterWaitTime;
 
 
-        private List<Vector3> enemyInitialPositions = new List<Vector3>();
-
         // Start is called before the first frame update
         void Start()
         {
@@ -49,13 +48,6 @@ namespace Main.Game
             elevatorInitialPos = elevator.transform.position;
             doorDestination.position = new Vector3(door.transform.position.x, doorDestination.position.y, door.transform.position.z); 
             Reset.CallReset += ResetValues;
-
-            int i = 0;
-            foreach (var enemy in enemySeekers)
-            {
-                enemyInitialPositions.Add(enemySeekers[i].transform.position);
-                i++;
-            }
         }
 
         // Update is called once per frame
@@ -91,9 +83,11 @@ namespace Main.Game
             int i = 0;
             foreach (var enemy in enemySeekers)
             {
+                tubDoors[i].obstacle.enabled = false;
                 enemy.anim.Play(GameConstants.enemyGlitchAnim);
                 enemy.isHunting = false;
-                enemy.agent.transform.position = enemyInitialPositions[i];
+                enemy.agent.isStopped = true;
+                enemy.transform.position = initialEnemyPosition[i].position;
                 i++;
             }
         }
@@ -102,29 +96,18 @@ namespace Main.Game
         {
             finalHuntInProgress = true;
             isDoorOpening = true;
+            audioManager.SetTrack(audioManager._chaseSequenceTrack);
 
-            tubDoors[0].OpenDoor();
-            enemySeekers[0].isHunting = true;
-            enemySeekers[0].agent.isStopped = false;
-            enemySeekers[0].enabled = true;
-            yield return new WaitForSeconds(secondHunterWaitTime);
-
-            tubDoors[1].OpenDoor();
-            enemySeekers[1].isHunting = true;
-            enemySeekers[0].agent.isStopped = false;
-            enemySeekers[0].enabled = true;
-            yield return new WaitForSeconds(thirdHunterWaitTime);
-
-            tubDoors[2].OpenDoor();
-            enemySeekers[2].isHunting = true;
-            enemySeekers[0].agent.isStopped = false;
-            enemySeekers[0].enabled = true;
-            yield return new WaitForSeconds(fourthHunterWaitTime);
-
-            tubDoors[3].OpenDoor();
-            enemySeekers[3].isHunting = true;
-            enemySeekers[0].agent.isStopped = false;
-            enemySeekers[0].enabled = true;
+            int i = 0;
+            foreach (var enemy in enemySeekers)
+            {
+                tubDoors[i].OpenDoor();
+                enemy.isHunting = true;
+                enemy.agent.isStopped = false;
+                enemy.enabled = true;
+                yield return new WaitForSeconds(secondHunterWaitTime);
+            }
+           
         }
         public void StartFinalHunt()
         {
