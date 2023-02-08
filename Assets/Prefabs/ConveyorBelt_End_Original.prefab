@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4634659211764899033}
   - component: {fileID: 997218868134470432}
-  - component: {fileID: 6878821844539259200}
+  - component: {fileID: 8922315593999217243}
   m_Layer: 0
   m_Name: ConveyorBelt_End_Original
   m_TagString: Untagged
@@ -90,8 +90,8 @@ SkinnedMeshRenderer:
     m_Center: {x: 0.49999997, y: -0.24999999, z: 0.5}
     m_Extent: {x: 0.50000006, y: 0.27, z: 0.5}
   m_DirtyAABB: 0
---- !u!64 &6878821844539259200
-MeshCollider:
+--- !u!65 &8922315593999217243
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -100,7 +100,6 @@ MeshCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 0}
+  serializedVersion: 2
+  m_Size: {x: 0.37, y: 0.5400001, z: 1}
+  m_Center: {x: 0.13, y: -0.25, z: 0.5}

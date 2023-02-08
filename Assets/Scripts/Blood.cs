@@ -59,6 +59,11 @@ namespace Main.Game
                 Bobble();
             }
 
+            if (currentBlood <= 0)
+            {
+                CheckDeath();
+            }
+
         }
 
 
@@ -114,10 +119,10 @@ namespace Main.Game
                 StartCoroutine(PlayerTakeDamage());
             }
 
-            if (currentBlood <= 0)
-            {
-                CheckDeath();
-            }
+            //if (currentBlood <= 0)
+            //{
+            //    CheckDeath();
+            //}
 
 
         }
@@ -130,7 +135,6 @@ namespace Main.Game
             //float initialBlood = currentBlood;
             currentBlood -= enemyDamage;
             bloodMaterial.SetFloat("_Fill", currentBlood);
-            currentBlood = Mathf.Clamp(currentBlood, -0.1f, maxBlood);
             yield return new WaitForSeconds(invincibilityTime);
             canTakeDamage = true;
         }

@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3350444420254561709}
   - component: {fileID: 692389113942671719}
   - component: {fileID: 1634180011321147245}
+  - component: {fileID: 5549989738964822497}
   m_Layer: 0
   m_Name: Fridge
   m_TagString: Untagged
@@ -4336,3 +4337,17 @@ MonoBehaviour:
   - a: 319
     b: 316
   m_SelectedVertices: 3c0100003d0100003e0100003f010000
+--- !u!64 &5549989738964822497
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1340700821511807154}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 0}

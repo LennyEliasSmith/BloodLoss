@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3640038205371968681}
   - component: {fileID: 1540499626700511331}
   - component: {fileID: 1690776006103298821}
+  - component: {fileID: 7490730170097652849}
   m_Layer: 0
   m_Name: WallTubeBend
   m_TagString: Untagged
@@ -98,3 +99,19 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -1372901025484056134, guid: 6433d67a01a074a4cb741c205592d26a, type: 3}
+--- !u!208 &7490730170097652849
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1035837052185524662}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.99000007, y: 1, z: 1}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0.010000001, y: 0, z: 0}
+  m_TimeToStationary: 0.5

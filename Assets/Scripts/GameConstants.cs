@@ -23,6 +23,7 @@ namespace Main.Game
             CHANGING
         }
 
+        [SerializeField]
         public static Gamestates gamestates;
         public static PlayerStates playerStates;
         public static StageStates stageStates;

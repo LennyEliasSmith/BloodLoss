@@ -49,6 +49,7 @@ public class UIManager : MonoBehaviour
         reset = FindObjectOfType<Reset>();
         respawnController = FindObjectOfType<RespawnController>();
         audioManager.SetTrack(audioManager._whiteNoise);
+        Reset.CallReset += ResetValues;
 
     }
 
@@ -127,6 +128,11 @@ public class UIManager : MonoBehaviour
         }
     }
 
+    public void ResetValues()
+    {
+        isEnding = false;
+    }
+
     public void MainMenu()
     {
         mainMenu.SetActive(true);
@@ -177,6 +183,11 @@ public class UIManager : MonoBehaviour
         Application.Quit();
     }
 
+    public void FlashBlood()
+    {
+        StartCoroutine(Pulse());
+    }
+
     IEnumerator FadeInImage()
     {
        
@@ -206,17 +217,6 @@ public class UIManager : MonoBehaviour
         }
         uiObject.SetActive(false);
     }
-    IEnumerator EndMethod(CanvasGroup group, GameObject uiObject)
-    {
-       
-        uiObject.SetActive(true);
-        while (group.alpha < 0)
-        {
-            group.alpha += fadeSpeed * Time.deltaTime;
-            yield return null;
-        }
-        
-    }
 
     IEnumerator EndText()
     {
@@ -230,10 +230,6 @@ public class UIManager : MonoBehaviour
         GameConstants.gamestates = GameConstants.Gamestates.PAUSED;
     }
 
-    public void FlashBlood()
-    {
-        StartCoroutine(Pulse());
-    }
 
     IEnumerator Pulse()
     {

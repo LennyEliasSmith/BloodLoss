@@ -17,25 +17,42 @@ namespace Main.Game
         public bool isSpawned;
 
         public int distance = 10;
+        public Vector3 initialPos;
 
+        private First_ChaseSequence first;
+        private FinalChaseSequence final;
         // Start is called before the first frame update
         void Start()
         {
+            first = FindObjectOfType<First_ChaseSequence>();
+            final = FindObjectOfType<FinalChaseSequence>();
             player = GameObject.FindGameObjectWithTag("Player").transform;
             if (isSpawned)
             {
                 anim.enabled = false;
             }
+
+            Reset.CallReset += ResetValues;
+            initialPos = transform.localPosition;
+            
         }
 
         // Update is called once per frame
         void Update()
         {
-
-            if (isHunting && GameConstants.gamestates == GameConstants.Gamestates.RUNNING)
+            if(final.finalHuntInProgress || first.room1Init)
             {
-                ChasePlayer();
+                if (isHunting && GameConstants.gamestates != GameConstants.Gamestates.PAUSED)
+                {
+                    ChasePlayer();
+                    agent.isStopped = false;
+                }
+                else
+                {
+                    agent.isStopped = true;
+                }
             }
+    
         }
 
         void ChasePlayer()
@@ -58,6 +75,14 @@ namespace Main.Game
                 Blood playerBlood = other.gameObject.GetComponent<Blood>();
                 playerBlood.TakeDamage();
             }
+        }
+
+        public void ResetValues()
+        {
+            //transform.localPosition = initialPos;
+            //agent.isStopped = true;
+            //isHunting = false;
+            //anim.Play(GameConstants.enemyGlitchAnim);
         }
     }
 }

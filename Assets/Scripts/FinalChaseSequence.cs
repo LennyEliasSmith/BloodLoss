@@ -38,16 +38,30 @@ namespace Main.Game
         public float thirdHunterWaitTime;
         public float fourthHunterWaitTime;
 
+        private Quaternion initialEasle1Rot;
+        private Quaternion initialEasle2Rot;
 
+        private List<Vector3> initialPos = new List<Vector3>();
         // Start is called before the first frame update
+
         void Start()
         {
             elevatorMoving = false;
+
             initialDoorPos = door.transform.position;
             entranceDoorInitialPos = entranceDoor.position;
             elevatorInitialPos = elevator.transform.position;
-            doorDestination.position = new Vector3(door.transform.position.x, doorDestination.position.y, door.transform.position.z); 
+
+            doorDestination.position = new Vector3(door.transform.position.x, doorDestination.position.y, door.transform.position.z);
+            initialEasle1Rot = easle1.transform.rotation;
+            initialEasle2Rot = easle2.transform.rotation;
             Reset.CallReset += ResetValues;
+            Reset.CallReset += ResetEnemyPositions;
+
+            foreach (var enemy in enemySeekers)
+            {
+                initialPos.Add(enemy.transform.position);
+            }
         }
 
         // Update is called once per frame
@@ -71,24 +85,33 @@ namespace Main.Game
             finalHuntInProgress = false;
             elevatorMoving = false;
 
+            easle1.transform.localRotation = new Quaternion(0f, 90f, 0f, 0f);
+            easle2.transform.localRotation = new Quaternion(0, 90, 0, 0);
+
             door.transform.position = initialDoorPos;
             audioManager.audioSource.clip = audioManager._ambienceTrack;
             elevator.transform.position = elevatorInitialPos;
 
-            easle1.transform.rotation = new Quaternion(0f, 90f, 0f, 0f);
-            easle2.transform.rotation = new Quaternion(0, 0, 0, 0);
 
+        }
 
-
+        public void ResetEnemyPositions()
+        {
             int i = 0;
             foreach (var enemy in enemySeekers)
             {
-                tubDoors[i].obstacle.enabled = false;
-                enemy.anim.Play(GameConstants.enemyGlitchAnim);
-                enemy.isHunting = false;
+                if (tubDoors[i].obstacle.enabled)
+                {
+                    tubDoors[i].obstacle.enabled = false;
+                }
+
+                enemy.agent.Warp(initialPos[i]);
                 enemy.agent.isStopped = true;
-                enemy.transform.position = initialEnemyPosition[i].position;
+                enemy.isHunting = false;
+                enemy.anim.Play(GameConstants.enemyGlitchAnim);
+
                 i++;
+                Debug.Log(enemy.name + " has been reset to position " + enemy.transform.localPosition);
             }
         }
 
@@ -139,6 +162,7 @@ namespace Main.Game
             easle2.transform.rotation = new Quaternion(0, 180, 0, 0);
             elevator.transform.position = Vector3.Lerp(elevator.transform.position, elevatorDesiredPos.position, elevatorSpeed * Time.deltaTime);
         }
+
 
 
     }

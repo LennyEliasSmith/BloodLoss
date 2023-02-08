@@ -36,9 +36,9 @@ public class First_ChaseSequence : MonoBehaviour
 
 
     // Start is called before the first frame update
-    
 
-    
+
+
     void Start()
     {
         s_buttonPressedThreshold = buttonsPressedThreshold;
@@ -53,10 +53,12 @@ public class First_ChaseSequence : MonoBehaviour
 
     public void ResetValues() 
     {
-        room1Init = false;
         enemySeeker.isHunting = false;
-        //enemySeeker.transform.position = chaseSequenceSpawn.position;
-        enemySeeker.agent.transform.position = chaseSequenceSpawn.position;
+        //enemySeeker.transform.localPosition = chaseSequenceSpawn.localPosition;
+        enemySeeker.agent.isStopped = true;
+        enemySeeker.agent.Warp(chaseSequenceSpawn.localPosition);
+        enemySeeker.anim.Play(GameConstants.enemyGlitchAnim);
+        room1Init = false;
         Door1.transform.position = door1InitialPosition;
         Door2.transform.position = door2InitialPosition;
         s_ButtonsPressed = 0;
