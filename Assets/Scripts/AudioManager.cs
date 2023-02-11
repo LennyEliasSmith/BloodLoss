@@ -9,10 +9,16 @@ public class AudioManager : MonoBehaviour
 
     public  AudioMixer audioMixer;
     public AudioSource audioSource;
+    public AudioSource heartBeatAudioSource;
     public AudioClip _whiteNoise;
     public AudioClip _ambienceTrack;
     public AudioClip _chaseSequenceTrack;
-    public AudioClip doorOpen;
+    public AudioClip _doorOpen;
+    public AudioClip _pickup;
+    public AudioClip _scare;
+    public AudioClip _terminalButton;
+    public AudioClip _heartbeat;
+    public AudioClip _stinger;
 
     public void SetTrack(AudioClip desiredTrack)
     {

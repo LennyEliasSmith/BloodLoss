@@ -45,6 +45,7 @@ namespace Main.Game
                         {
                             case Scare.scareCase.SCAREBLIP:
                                 StartCoroutine(scare.spotlightScare);
+                                audioManager.audioSource.PlayOneShot(audioManager._scare);
                                 break;
                             case Scare.scareCase.SCAREWALK:
                                 StartCoroutine(scare.walkScare);
@@ -80,7 +81,8 @@ namespace Main.Game
                                 case ButtonBehaviour.ButtonState.DOOR:
                                     buttonBehaviour.screenRenderer.materials[2].SetColor("_EmissionColor", Color.green);
                                     buttonBehaviour.screenLight.color = Color.green;
-                                    audioManager.audioSource.PlayOneShot(audioManager.doorOpen);
+                                    audioManager.audioSource.PlayOneShot(audioManager._terminalButton);
+                                    audioManager.audioSource.PlayOneShot(audioManager._doorOpen);
                                     buttonBehaviour.Open();
                                     break;
 
@@ -89,13 +91,14 @@ namespace Main.Game
                                     if (!buttonBehaviour.hasBeenPressed)
                                     {
                                         buttonBehaviour.hasBeenPressed = true;
+                                        audioManager.audioSource.PlayOneShot(audioManager._terminalButton);
                                         First_ChaseSequence.s_ButtonsPressed += 1;
                                         buttonBehaviour.screenRenderer.materials[2].SetColor("_EmissionColor", Color.green);
                                         buttonBehaviour.screenLight.color = Color.green;
                                     }
                                     if (First_ChaseSequence.s_ButtonsPressed == First_ChaseSequence.s_buttonPressedThreshold)
                                     {
-                                    audioManager.audioSource.PlayOneShot(audioManager.doorOpen);
+                                    audioManager.audioSource.PlayOneShot(audioManager._doorOpen);
                                     buttonBehaviour.Open();
                                     }
                                     break;
@@ -116,7 +119,8 @@ namespace Main.Game
                                 {
                                     buttonBehaviour.screenRenderer.materials[2].SetColor("_EmissionColor", Color.green);
                                     buttonBehaviour.screenLight.color = Color.green;
-                                    audioManager.audioSource.PlayOneShot(audioManager.doorOpen);
+                                    audioManager.audioSource.PlayOneShot(audioManager._doorOpen);
+                                    audioManager.audioSource.PlayOneShot(audioManager._terminalButton);
                                     buttonBehaviour.Open();
                                 }
                              
@@ -142,6 +146,7 @@ namespace Main.Game
                     if (!parent.parentTerminal.hasKeyCard && Input.GetKey(KeyCode.E))
                     {
                         parent.parentTerminal.TakeCard();
+                        audioManager.audioSource.PlayOneShot(audioManager._pickup);
                     }
                 }
 
@@ -159,6 +164,7 @@ namespace Main.Game
                     if(!bloodPack.hasBeenPickedUp && Input.GetKey(KeyCode.E))
                     {
                         bloodPack.OnPickedUp(playerBlood);
+                        audioManager.audioSource.PlayOneShot(audioManager._pickup);
                     }
 
                 }

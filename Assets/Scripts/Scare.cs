@@ -31,6 +31,7 @@ namespace Main.Game
 
         public IEnumerator spotlightScare;
         public IEnumerator walkScare;
+        private AudioManager audioManager;
         // Start is called before the first frame update
 
         private void Start()
@@ -54,7 +55,7 @@ namespace Main.Game
 
             yield return new WaitForSeconds(walkTime);
 
-            scarePrefab.SetActive(false);
+            gameObject.SetActive(false);
         }
         IEnumerator SpotlightScare()
         {

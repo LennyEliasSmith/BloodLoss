@@ -8,6 +8,7 @@ namespace Main.Game
     public class Blood : MonoBehaviour
     {
         public GameManager manager;
+        public AudioManager audioManager;
         public GameObject Player;
         public PlayerData playerData;
         public PlayerMover playerMover;
@@ -64,6 +65,14 @@ namespace Main.Game
                 CheckDeath();
             }
 
+            if (currentBlood <= 0.3)
+            {
+                audioManager.heartBeatAudioSource.Play();
+            }
+            else
+            {
+                audioManager.heartBeatAudioSource.Stop();
+            }
         }
 
 
@@ -75,6 +84,8 @@ namespace Main.Game
             currentBlood = Mathf.Lerp(initialBlood, loss, lossRate * Time.deltaTime);
             bloodMaterial.SetFloat("_Fill", currentBlood);
             currentBlood = Mathf.Clamp(currentBlood, minBlood, maxBlood);
+
+
 
 #if UNITY_EDITOR
             //Cheat

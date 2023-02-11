@@ -16,6 +16,13 @@ public class SequenceBehaviour : MonoBehaviour
         else if (other.tag == GameConstants.PlayerTag && isExitTrigger)
         {
             sequence.CloseExit();
+
+            var audioManager = FindObjectOfType<AudioManager>();
+
+         
+            audioManager.audioSource.PlayOneShot(audioManager._stinger);
+            
+            
             respawnController.currentRespawnLocation = 2;
         }
     }

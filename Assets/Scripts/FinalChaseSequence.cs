@@ -155,9 +155,12 @@ namespace Main.Game
         {
             if (!elevatorMoving)
             {
+                audioManager.audioSource.clip = audioManager._ambienceTrack;
+                audioManager.audioSource.PlayOneShot(audioManager._stinger);
                 elevatorMoving = true;
+               
             }
-            audioManager.audioSource.clip = audioManager._ambienceTrack;
+
             easle1.transform.rotation = new Quaternion(0f,0f,0f, 0f);
             easle2.transform.rotation = new Quaternion(0, 180, 0, 0);
             elevator.transform.position = Vector3.Lerp(elevator.transform.position, elevatorDesiredPos.position, elevatorSpeed * Time.deltaTime);
