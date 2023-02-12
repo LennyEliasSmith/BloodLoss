@@ -77,6 +77,15 @@ namespace Main.Game
             }
         }
 
+        private void OnTriggerStay(Collider other)
+        {
+            if (other.tag == GameConstants.PlayerTag)
+            {
+                Blood playerBlood = other.gameObject.GetComponent<Blood>();
+                playerBlood.TakeDamage();
+            }
+        }
+
         public void ResetValues()
         {
             //transform.localPosition = initialPos;

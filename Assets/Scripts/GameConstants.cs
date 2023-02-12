@@ -15,6 +15,7 @@ namespace Main.Game
         public enum PlayerStates
         {
             BLEEDING,
+            LOWHEALTH,
             NORMAL
         }
         public enum StageStates

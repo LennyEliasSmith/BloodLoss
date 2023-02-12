@@ -75,6 +75,7 @@ public class ButtonBehaviour : MonoBehaviour
             screenLight.color = Color.red;
             keyCard.SetActive(true);
         }
+        screenLight.color = Color.yellow;
         screenRenderer.materials[2].SetColor("_EmissionColor", Color.yellow);
     }
 

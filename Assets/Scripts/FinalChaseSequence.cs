@@ -46,6 +46,7 @@ namespace Main.Game
 
         void Start()
         {
+
             elevatorMoving = false;
 
             initialDoorPos = door.transform.position;
@@ -85,8 +86,8 @@ namespace Main.Game
             finalHuntInProgress = false;
             elevatorMoving = false;
 
-            easle1.transform.localRotation = new Quaternion(0f, 90f, 0f, 0f);
-            easle2.transform.localRotation = new Quaternion(0, 90, 0, 0);
+            easle1.transform.rotation = new Quaternion(0f, 90f, 0f, 0f);
+            easle2.transform.rotation = new Quaternion(0, 90, 0, 0);
 
             door.transform.position = initialDoorPos;
             audioManager.audioSource.clip = audioManager._ambienceTrack;

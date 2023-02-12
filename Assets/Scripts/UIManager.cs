@@ -37,8 +37,13 @@ public class UIManager : MonoBehaviour
     public CanvasGroup bloodPulse;
     public float pulseSpeed;
 
+    public CanvasGroup lowHealth;
+    public float lowHealthPulseSpeed;
+
     public GameObject settings;
 
+    public float timer;
+    public bool isPulsing = false;
     public bool isFlashing = false;
 
     // Start is called before the first frame update
@@ -125,6 +130,15 @@ public class UIManager : MonoBehaviour
                 pauseMenu.SetActive(false);
                 GameConstants.gamestates = GameConstants.Gamestates.RUNNING;
             }
+        }
+
+        if(GameConstants.playerStates == GameConstants.PlayerStates.LOWHEALTH)
+        {
+            lowHealth.alpha = 0.2f;
+        }
+        else
+        {
+            lowHealth.alpha = 0;
         }
     }
 
@@ -240,6 +254,7 @@ public class UIManager : MonoBehaviour
             yield return null;
         }
     }
+
 
 
  

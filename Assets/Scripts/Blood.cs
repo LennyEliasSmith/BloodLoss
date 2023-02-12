@@ -42,6 +42,7 @@ namespace Main.Game
 
         void Start()
         {
+            GameConstants.playerStates = GameConstants.PlayerStates.NORMAL;
             currentBlood = maxBlood;
             initialLossTime = lossTime;
             bloodMaterial = bloodRenderer.material;
@@ -65,14 +66,7 @@ namespace Main.Game
                 CheckDeath();
             }
 
-            if (currentBlood <= 0.3)
-            {
-                audioManager.heartBeatAudioSource.Play();
-            }
-            else
-            {
-                audioManager.heartBeatAudioSource.Stop();
-            }
+            
         }
 
 
@@ -85,6 +79,17 @@ namespace Main.Game
             bloodMaterial.SetFloat("_Fill", currentBlood);
             currentBlood = Mathf.Clamp(currentBlood, minBlood, maxBlood);
 
+            if (currentBlood <= 0.3 && !audioManager.heartBeatAudioSource.isPlaying)
+            {
+                LowHealth();
+            }
+
+            if (currentBlood > 0.3 && audioManager.heartBeatAudioSource.isPlaying)
+            {
+                GameConstants.playerStates = GameConstants.PlayerStates.NORMAL;
+                audioManager.heartBeatAudioSource.Stop();
+            }
+    
 
 
 #if UNITY_EDITOR
@@ -145,9 +150,21 @@ namespace Main.Game
             canTakeDamage = false;
             //float initialBlood = currentBlood;
             currentBlood -= enemyDamage;
+
+            if(currentBlood < 0.3)
+            {
+                LowHealth();
+            }
+
             bloodMaterial.SetFloat("_Fill", currentBlood);
             yield return new WaitForSeconds(invincibilityTime);
             canTakeDamage = true;
+        }
+
+        void LowHealth()
+        {
+            GameConstants.playerStates = GameConstants.PlayerStates.LOWHEALTH;
+            audioManager.heartBeatAudioSource.Play();
         }
 
         

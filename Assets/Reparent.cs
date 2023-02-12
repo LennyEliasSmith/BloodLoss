@@ -16,6 +16,8 @@ public class Reparent : MonoBehaviour
         if(other.tag == GameConstants.PlayerTag)
         {
             player.transform.SetParent(parent.transform,true);
+            Blood blood = other.GetComponent<Blood>();
+            blood.currentBlood += 0.2f;
         }
     }
 
@@ -25,6 +27,7 @@ public class Reparent : MonoBehaviour
         {
             player.transform.SetParent(null, true);
             player.transform.position = respawnController.respawnLocations[0].position;
+            
         }
     }
 }
