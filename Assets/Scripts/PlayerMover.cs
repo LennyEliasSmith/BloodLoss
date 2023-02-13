@@ -55,12 +55,12 @@ namespace Main.Game
                 if (Input.GetButton("Fire3"))
                 {
                     desiredSpeed = runSpeed;
-                    stepInterval = runStepInterval;
+                    //stepInterval = runStepInterval;
                 }
                 else
                 {
                     desiredSpeed = initialSpeed;
-                    stepInterval = initialStepInterval;
+                    //stepInterval = initialStepInterval;
                 }
 
                 speed = Mathf.Lerp(speed, desiredSpeed, slowdownSpeed * Time.fixedDeltaTime);
