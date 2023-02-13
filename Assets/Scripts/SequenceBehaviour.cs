@@ -8,11 +8,13 @@ public class SequenceBehaviour : MonoBehaviour
     public RespawnController respawnController;
     public bool isExitTrigger;
 
-    private bool hasPlayed = false;
+    private bool isPlaying = false;
+
+    AudioManager audioManager;
 
     private void Start()
     {
-        Reset.CallReset += ResetValues;
+        audioManager = FindObjectOfType<AudioManager>();
     }
     private void OnTriggerEnter(Collider other)
     {
@@ -20,32 +22,21 @@ public class SequenceBehaviour : MonoBehaviour
         {
             sequence.InitRoom1();
         }
-        else if (other.tag == GameConstants.PlayerTag && isExitTrigger)
+        else if (other.tag == GameConstants.PlayerTag && isExitTrigger && !isPlaying)
         {
             sequence.CloseExit();
+    
+            StartCoroutine(PlaySound());
 
-            var audioManager = FindObjectOfType<AudioManager>();
-
-            if (!hasPlayed)
-            {
-                audioManager.audioSource.PlayOneShot(audioManager._stinger);  
-            }
-            
-            
             respawnController.currentRespawnLocation = 2;
         }
     }
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.tag == GameConstants.PlayerTag)
-        {
-            hasPlayed = true;
-        }
 
-    }
-
-    void ResetValues()
+    IEnumerator PlaySound()
     {
-        hasPlayed = false;
+        isPlaying = true;
+        audioManager.audioSource.PlayOneShot(audioManager._stinger);
+        yield return new WaitForSeconds(5);
+        isPlaying = false;
     }
 }

@@ -9,6 +9,8 @@ public class Reparent : MonoBehaviour
     public GameObject parent;
     public GameObject player;
     public RespawnController respawnController;
+
+    private Blood blood;
     // Start is called before the first frame update
 
     private void OnTriggerEnter(Collider other)
@@ -16,8 +18,8 @@ public class Reparent : MonoBehaviour
         if(other.tag == GameConstants.PlayerTag)
         {
             player.transform.SetParent(parent.transform,true);
-            Blood blood = other.GetComponent<Blood>();
-            blood.currentBlood += 0.2f;
+            blood = other.GetComponent<Blood>();
+            blood.lossAmount = 0.0001f;
         }
     }
 
@@ -27,7 +29,6 @@ public class Reparent : MonoBehaviour
         {
             player.transform.SetParent(null, true);
             player.transform.position = respawnController.respawnLocations[0].position;
-            
         }
     }
 }

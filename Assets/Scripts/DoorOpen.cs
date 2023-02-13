@@ -9,7 +9,7 @@ public class DoorOpen : MonoBehaviour
     public float doorSpeed;
 
     public float desiredRot;
-    public GameObject door;
+    public Transform door;
     public Renderer doorRenderer;
     public float negativeTime;
     public NavMeshObstacle obstacle;
@@ -24,17 +24,7 @@ public class DoorOpen : MonoBehaviour
     }
     public void OpenDoor()
     {
-        obstacle.enabled = true;
-        door.transform.localRotation = new Quaternion(0, desiredRot, 0, 0);
-        //doorRenderer.material.SetFloat("_Fill", -doorSpeed * Time.deltaTime);
-
-        float obstacleWatitTime = 5f;
-
-        while(obstacleWatitTime > 0)
-        {
-            obstacleWatitTime -= Time.deltaTime;
-        }
-        Debug.Log("This door has opened");
+        StartCoroutine(Open());
     }
 
     void ResetValues()
@@ -42,5 +32,14 @@ public class DoorOpen : MonoBehaviour
         //doorRenderer.material.SetFloat("_Fill", 1);
         door.transform.localRotation = initialRot;
         obstacle.enabled = false;
+    }
+
+    IEnumerator Open()
+    {
+        door.localRotation = new Quaternion(0, 0, desiredRot, 0);
+        obstacle.enabled = true;
+        //doorRenderer.material.SetFloat("_Fill", -doorSpeed * Time.deltaTime);
+        Debug.Log("This door has opened");
+        yield return null;
     }
 }

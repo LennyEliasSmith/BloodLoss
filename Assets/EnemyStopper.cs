@@ -8,7 +8,7 @@ public class EnemyStopper : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.tag == GameConstants.PlayerTag && chaseSequenceManager.finalHuntInProgress)
+        if(other.tag == GameConstants.PlayerTag)
         {
             chaseSequenceManager.ResolveHunt();
         }

@@ -28,10 +28,13 @@ namespace Main.Game
         public GameObject easle2;
         public float desiredY;
 
-        public Transform entranceDoor;
+    
         public Transform doorDestination;
 
-       private Vector3 entranceDoorInitialPos;
+
+        public Transform entranceDoor;
+        private Vector3 entranceDoorInitialPos;
+        public Transform enteranceDoorDestination;
         private Vector3 initialDoorPos;
 
         public float secondHunterWaitTime;
@@ -63,6 +66,7 @@ namespace Main.Game
             {
                 initialPos.Add(enemy.transform.position);
             }
+
         }
 
         // Update is called once per frame
@@ -86,13 +90,13 @@ namespace Main.Game
             finalHuntInProgress = false;
             elevatorMoving = false;
 
-            easle1.transform.rotation = new Quaternion(0f, 90f, 0f, 0f);
-            easle2.transform.rotation = new Quaternion(0, 90, 0, 0);
+            easle1.transform.rotation = initialEasle1Rot;
+            easle2.transform.rotation = initialEasle2Rot;
 
             door.transform.position = initialDoorPos;
             audioManager.audioSource.clip = audioManager._ambienceTrack;
             elevator.transform.position = elevatorInitialPos;
-
+            entranceDoor.position = entranceDoorInitialPos;
 
         }
 
@@ -118,18 +122,22 @@ namespace Main.Game
 
         IEnumerator FinalHunt()
         {
+            entranceDoor.position = enteranceDoorDestination.position;
             finalHuntInProgress = true;
             isDoorOpening = true;
             audioManager.SetTrack(audioManager._chaseSequenceTrack);
 
+
             int i = 0;
             foreach (var enemy in enemySeekers)
             {
+
                 tubDoors[i].OpenDoor();
                 enemy.isHunting = true;
                 enemy.agent.isStopped = false;
                 enemy.enabled = true;
                 yield return new WaitForSeconds(secondHunterWaitTime);
+                i++;
             }
            
         }

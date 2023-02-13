@@ -28,6 +28,7 @@ namespace Main.Game
         public float lossTime;
         public float lossRate;
         public float lossAmount;
+        private float initialLossAmount;
         public float lossModifier;
         public float lossLerpModifier;
         public float invincibilityTime;
@@ -40,8 +41,17 @@ namespace Main.Game
 
         public bool canTakeDamage = true;
 
+        private UIManager UIManager;
+        private First_ChaseSequence first;
+        private FinalChaseSequence final;
+
+        private bool death = false;
         void Start()
         {
+            UIManager = FindObjectOfType<UIManager>();
+            first = FindObjectOfType<First_ChaseSequence>();
+            final = FindObjectOfType<FinalChaseSequence>();
+            initialLossAmount = lossAmount;
             GameConstants.playerStates = GameConstants.PlayerStates.NORMAL;
             currentBlood = maxBlood;
             initialLossTime = lossTime;
@@ -108,7 +118,13 @@ namespace Main.Game
 
         public void CheckDeath()
         {
-            reset.ResetAll();
+            if (!death)
+            {
+                StartCoroutine(Death());
+                reset.ResetAll();
+            }
+
+
         }
 
         void Bobble()
@@ -171,11 +187,25 @@ namespace Main.Game
         public void ResetValues()
         {
             Debug.Log("Ya Dead");
+            lossAmount = initialLossAmount;
             canTakeDamage = true;
             Player.transform.position = respawnController.respawnLocations[respawnController.currentRespawnLocation].position;
             currentBlood = maxBlood;
         }
 
+
+        IEnumerator Death()
+        {
+            death = true;
+            UIManager.DeathShow();
+            if (first.room1Init || final.finalHuntInProgress)
+            {
+                audioManager.audioSource.PlayOneShot(audioManager._stinger);
+            }
+
+            yield return new WaitForSeconds(3);
+            death = false;
+        }
     }
 
 }

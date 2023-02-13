@@ -46,6 +46,10 @@ public class UIManager : MonoBehaviour
     public bool isPulsing = false;
     public bool isFlashing = false;
 
+    public GameObject deathSlideObj;
+    public CanvasGroup deathSlide;
+    public float deathSlideSpeed;
+
     // Start is called before the first frame update
     void OnEnable()
     {
@@ -116,11 +120,16 @@ public class UIManager : MonoBehaviour
                 Cursor.visible = true;
             }
 
+            if (deathSlideObj.activeInHierarchy)
+            {
+                DeathHide();
+            }
+
         }
 
         if (Input.GetKeyDown(KeyCode.Tab))
         {
-            if (!pauseMenu.activeInHierarchy && !mainMenu.activeInHierarchy)
+            if (!pauseMenu.activeInHierarchy && !mainMenu.activeInHierarchy && !deathSlideObj.activeInHierarchy && !startText.activeInHierarchy)
             {
                 pauseMenu.SetActive(true);
                 GameConstants.gamestates = GameConstants.Gamestates.PAUSED;
@@ -253,6 +262,39 @@ public class UIManager : MonoBehaviour
             bloodPulse.alpha -= pulseSpeed * Time.deltaTime;
             yield return null;
         }
+    }
+
+
+    public void DeathHide()
+    {
+        StartCoroutine(DeathSlideHide());
+    }
+
+    public void DeathShow()
+    {
+        StartCoroutine(DeathSlide());
+    }
+
+    IEnumerator DeathSlide()
+    {
+        deathSlideObj.SetActive(true);
+        deathSlide.alpha = 0;
+        while (deathSlide.alpha < 1)
+        {
+            deathSlide.alpha += deathSlideSpeed * Time.deltaTime;
+            yield return null;
+        }
+    }
+
+    IEnumerator DeathSlideHide()
+    {
+        deathSlide.alpha = 1;
+        while (deathSlide.alpha > 0)
+        {
+            deathSlide.alpha -= deathSlideSpeed * Time.deltaTime;
+            yield return null;
+        }
+        deathSlideObj.SetActive(false);
     }
 
 
