@@ -129,7 +129,7 @@ public class First_ChaseSequence : MonoBehaviour
         audioManager.SetTrack(audioManager._ambienceTrack);
         enemySeeker.isHunting = false;
         enemySeeker.agent.isStopped = true;
-
+        enemySeeker.agent.Warp(chaseSequenceSpawn.localPosition);
         float elapsedTime = 0;
         while (elapsedTime < doorSpeed)
         {
