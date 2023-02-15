@@ -14,7 +14,7 @@ public class AudioSlider : MonoBehaviour
 
     public void OnChangeSlider(float Value)
     {
-        valueText.SetText($"{Value.ToString("N4")}");
+        valueText.SetText($"{Value.ToString("N2")}");
         mixer.SetFloat("Volume", Mathf.Log10(Value) * 20);
     }
 
