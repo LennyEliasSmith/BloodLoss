@@ -53,6 +53,20 @@ public class ButtonBehaviour : MonoBehaviour
         }
     }
 
+
+    public void ResetValues()
+    {
+        LoopThroughObjects();
+        if (keyCard != null)
+        {
+            hasKeyCard = false;
+            screenLight.color = Color.red;
+            keyCard.SetActive(true);
+        }
+        screenLight.color = Color.yellow;
+        screenRenderer.materials[2].SetColor("_EmissionColor", Color.yellow);
+    }
+
     public void Open()
     {
         if(state != ButtonState.KEYCARD)
@@ -65,20 +79,6 @@ public class ButtonBehaviour : MonoBehaviour
         }
        
     }
-
-    public void ResetValues()
-    {
-        LoopThroughObjects();
-        if(keyCard != null)
-        {
-            hasKeyCard = false;
-            screenLight.color = Color.red;
-            keyCard.SetActive(true);
-        }
-        screenLight.color = Color.yellow;
-        screenRenderer.materials[2].SetColor("_EmissionColor", Color.yellow);
-    }
-
 
     public void LoopThroughObjects()
     {
@@ -95,6 +95,11 @@ public class ButtonBehaviour : MonoBehaviour
         }
     }
 
+    public void TakeCard()
+    {
+        keyCard.SetActive(false);
+        hasKeyCard = true;
+    }
 
     IEnumerator OpenDoor()
     {
@@ -135,9 +140,5 @@ public class ButtonBehaviour : MonoBehaviour
         }
     }
 
-    public void TakeCard()
-    {
-        keyCard.SetActive(false);
-        hasKeyCard = true;
-    }
+
 }

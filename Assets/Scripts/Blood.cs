@@ -7,6 +7,7 @@ namespace Main.Game
 {
     public class Blood : MonoBehaviour
     {
+        #region Variables and References
         public GameManager manager;
         public AudioManager audioManager;
         public GameObject Player;
@@ -46,6 +47,9 @@ namespace Main.Game
         private FinalChaseSequence final;
 
         private bool death = false;
+
+        #endregion
+
         void Start()
         {
             UIManager = FindObjectOfType<UIManager>();
@@ -62,7 +66,6 @@ namespace Main.Game
             Reset.CallReset += ResetValues;
 
         }
-
         private void Update()
         {
             if (GameConstants.gamestates == GameConstants.Gamestates.RUNNING)
@@ -78,7 +81,6 @@ namespace Main.Game
 
             
         }
-
 
         public void LoseBlood(float amount, float modifier)
         {
@@ -115,34 +117,6 @@ namespace Main.Game
             }
 #endif
         }
-
-        public void CheckDeath()
-        {
-            if (!death)
-            {
-                StartCoroutine(Death());
-                reset.ResetAll();
-            }
-
-
-        }
-
-        void Bobble()
-        {
-       
-            if (playerMover.playerVelocity.magnitude > 0.1f)
-            {
-                float frequency = bobFrequency;
-                float hBobValue = Mathf.Sin(Time.time * frequency) * defaultBobAmount;
-                float vBobValue = ((Mathf.Sin(Time.time * frequency * 2f) * 0.5f) + 0.5f) * defaultBobAmount;
-
-                bloodObjectPos.x = hBobValue;
-                bloodObjectPos.y = Mathf.Abs(vBobValue);
-                bloodObject.transform.localPosition = bloodObjectPos;
-            }
-
-        }
-
         public void TakeDamage()
         {
             if (canTakeDamage)
@@ -158,32 +132,34 @@ namespace Main.Game
 
 
         }
-
-        IEnumerator PlayerTakeDamage()
+        public void CheckDeath()
         {
-            Debug.Log("DamgeTaken");
-            manager.uIManager.FlashBlood();
-            canTakeDamage = false;
-            //float initialBlood = currentBlood;
-            currentBlood -= enemyDamage;
-
-            if(currentBlood < 0.3)
+            if (!death)
             {
-                LowHealth();
+                StartCoroutine(Death());
+                reset.ResetAll();
+            }
+        }
+        void Bobble()
+        {
+       
+            if (playerMover.playerVelocity.magnitude > 0.1f)
+            {
+                float frequency = bobFrequency;
+                float hBobValue = Mathf.Sin(Time.time * frequency) * defaultBobAmount;
+                float vBobValue = ((Mathf.Sin(Time.time * frequency * 2f) * 0.5f) + 0.5f) * defaultBobAmount;
+
+                bloodObjectPos.x = hBobValue;
+                bloodObjectPos.y = Mathf.Abs(vBobValue);
+                bloodObject.transform.localPosition = bloodObjectPos;
             }
 
-            bloodMaterial.SetFloat("_Fill", currentBlood);
-            yield return new WaitForSeconds(invincibilityTime);
-            canTakeDamage = true;
         }
-
         void LowHealth()
         {
             GameConstants.playerStates = GameConstants.PlayerStates.LOWHEALTH;
             audioManager.heartBeatAudioSource.Play();
         }
-
-        
         public void ResetValues()
         {
             Debug.Log("Ya Dead");
@@ -192,8 +168,6 @@ namespace Main.Game
             Player.transform.position = respawnController.respawnLocations[respawnController.currentRespawnLocation].position;
             currentBlood = maxBlood;
         }
-
-
         IEnumerator Death()
         {
             death = true;
@@ -205,6 +179,23 @@ namespace Main.Game
 
             yield return new WaitForSeconds(3);
             death = false;
+        }
+        IEnumerator PlayerTakeDamage()
+        {
+            Debug.Log("DamgeTaken");
+            manager.uIManager.FlashBlood();
+            canTakeDamage = false;
+            //float initialBlood = currentBlood;
+            currentBlood -= enemyDamage;
+
+            if (currentBlood < 0.3)
+            {
+                LowHealth();
+            }
+
+            bloodMaterial.SetFloat("_Fill", currentBlood);
+            yield return new WaitForSeconds(invincibilityTime);
+            canTakeDamage = true;
         }
     }
 
